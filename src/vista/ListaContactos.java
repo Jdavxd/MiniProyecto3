@@ -66,6 +66,7 @@ public class ListaContactos extends JFrame {
         btnActualizar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                
                 abrirVentanaEdicion();
             }
         });
@@ -99,6 +100,10 @@ public void actualizarTabla() {
     for (Estudiante contacto : contactos) {
         agregarFilaTabla(contacto);
     }
+}
+
+public void actualizarTablaDesdeOtraClase() {
+    actualizarTabla();
 }
 
 

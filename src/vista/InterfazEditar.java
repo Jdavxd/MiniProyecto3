@@ -24,13 +24,14 @@ public class InterfazEditar extends JFrame {
     private JTextField txtApellidos;
     private JTextField txtFechaNacimiento;
 
-    public InterfazEditar(JFrame parent, EstudianteDAO estudianteDAO, Estudiante estudiante) {
+    public InterfazEditar(ListaContactos listaContactos, EstudianteDAO estudianteDAO, Estudiante estudiante) {
         super("Editar Estudiante");
         this.estudianteDAO = estudianteDAO;
         this.estudiante = estudiante;
-
+        this.listaContactos = listaContactos;
+        
         setTitle("Agregar Estudiante");
-        setSize(300, 200);
+        setSize(600, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         txtIdentificacion = new JTextField(10);
@@ -60,9 +61,14 @@ public class InterfazEditar extends JFrame {
         JPanel panelBoton = new JPanel();
         panelBoton.setLayout(new FlowLayout(FlowLayout.RIGHT));
         JButton btnGuardar = new JButton("Guardar");
+        
+        
+
+        
         btnGuardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                
                 guardarCambios();
                 
             }
@@ -71,7 +77,7 @@ panelBoton.add(btnGuardar);
      add(panelBoton);
 
         // Centrar la ventana en relación con la ventana principal
-        setLocationRelativeTo(parent);
+        setLocationRelativeTo(null);
     }
 
     private void guardarCambios() {
@@ -86,9 +92,8 @@ panelBoton.add(btnGuardar);
 
         // Cerrar la ventana de edición
         dispose();
-        if (listaContactos != null) {
-        listaContactos.actualizarTabla();
-    }
+      
         JOptionPane.showMessageDialog(this, "Estudiante actualizado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+         listaContactos.actualizarTablaDesdeOtraClase();
     }
 }
