@@ -4,7 +4,6 @@
  */
 package vista;
 
-import colecciones.EstudianteDAO;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -12,15 +11,16 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
-import modelo.Estudiante;
+import modelo.ContactoModelo;
+import colecciones.ContactoDAO;
 
 public class ListaContactos extends JFrame {
-    private EstudianteDAO estudianteDAO;
+    private ContactoDAO ContactoDAO;
     private JTable tablaContactos;
     private DefaultTableModel modeloTabla;
 
-    public ListaContactos(EstudianteDAO estudianteDAO) {
-        this.estudianteDAO = estudianteDAO;
+    public ListaContactos(ContactoDAO estudianteDAO) {
+        this.ContactoDAO = estudianteDAO;
 
         setTitle("Lista de Contactos");
         setSize(600, 300);
@@ -48,8 +48,8 @@ public class ListaContactos extends JFrame {
          
 
         // Obtener la lista inicial de estudiantes y agregarlos a la tabla
-        List<Estudiante> contactos = estudianteDAO.obtenerTodosEstudiantes();
-        for (Estudiante contacto : contactos) {
+        List<ContactoModelo> contactos = estudianteDAO.obtenerTodosEstudiantes();
+        for (ContactoModelo contacto : contactos) {
             agregarFilaTabla(contacto);
         }
         
@@ -57,11 +57,14 @@ public class ListaContactos extends JFrame {
         // Crear el botón "Actualizar"
         JButton btnActualizar = new JButton("Actualizar");
         // Configurar el manejador de eventos para el botón Actualizar
-        btnActualizar.addActionListener(e -> actualizarTabla());
         
         JButton btnEliminar = new JButton("Eliminar");
+        JButton btnCargarEstudiantes = new JButton("Cargar Estudiantes");
+        JButton btnCargarEmpleados = new JButton("Cargar Empleados");
+        btnActualizar.addActionListener(e -> actualizarTabla());
 
-        
+        btnCargarEstudiantes.addActionListener(e -> cargarEstudiantes());
+        btnCargarEmpleados.addActionListener(e -> cargarEmpleados());
         
         // Configurar el manejador de eventos para el botón Actualizar
         btnActualizar.addActionListener(new ActionListener() {
@@ -91,6 +94,8 @@ public class ListaContactos extends JFrame {
         JPanel panelBoton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         panelBoton.add(btnActualizar);        
         panelBoton.add(btnEliminar);
+        panelBoton.add(btnCargarEstudiantes);
+        panelBoton.add(btnCargarEmpleados);
 
 
         // Agregar el panel con el botón al contenedor
@@ -101,7 +106,7 @@ public class ListaContactos extends JFrame {
     }
 
     // Método para agregar una fila a la tabla con la información del estudiante
-       private void agregarFilaTabla(Estudiante estudiante) {
+       private void agregarFilaTabla(ContactoModelo estudiante) {
         // Modificar según el tipo de contacto
         String tipoContacto = estudiante.getTipoContacto();
 
@@ -115,6 +120,25 @@ public class ListaContactos extends JFrame {
         modeloTabla.addRow(fila);
     }
        
+       
+    private void cargarEstudiantes() {
+    modeloTabla.setRowCount(0);  // Limpiar la tabla antes de agregar las filas actualizadas
+    List<ContactoModelo> estudiantes = ContactoDAO.obtenerEstudiantesPorTipo("Estudiante");
+    for (ContactoModelo estudiante : estudiantes) {
+        agregarFilaTabla(estudiante);
+    }
+}
+           
+           
+            private void cargarEmpleados() {
+        modeloTabla.setRowCount(0);  // Limpiar la tabla antes de agregar las filas actualizadas
+        List<ContactoModelo> empleados = ContactoDAO.obtenerTodosEmpleados();
+        for (ContactoModelo empleado : empleados) {
+            agregarFilaTabla(empleado);
+        }
+    }
+
+       
 private void eliminarEstudiante() {
     // Obtener el índice seleccionado en la tabla
     int filaSeleccionada = tablaContactos.getSelectedRow();
@@ -124,7 +148,7 @@ private void eliminarEstudiante() {
         String numeroIdentificacion = (String) modeloTabla.getValueAt(filaSeleccionada, 0);
 
         // Eliminar el estudiante utilizando el método en el DAO
-        estudianteDAO.eliminarEstudiante(numeroIdentificacion);
+        ContactoDAO.eliminarEstudiante(numeroIdentificacion);
 
         // Actualizar la tabla
         actualizarTablaDesdeOtraClase();
@@ -142,8 +166,8 @@ private void eliminarEstudiante() {
     // Método para actualizar la tabla cuando sea necesario
 public void actualizarTabla() {
     modeloTabla.setRowCount(0);  // Limpiar la tabla antes de agregar las filas actualizadas
-    List<Estudiante> contactos = estudianteDAO.obtenerTodosEstudiantes();
-    for (Estudiante contacto : contactos) {
+    List<ContactoModelo> contactos = ContactoDAO.obtenerTodosEstudiantes();
+    for (ContactoModelo contacto : contactos) {
         agregarFilaTabla(contacto);
     }
 }
@@ -169,11 +193,11 @@ public void actualizarTablaDesdeOtraClase() {
         // Corregir el índice para obtener el tipo de contacto desde la columna 4
         String tipoContacto = (String) modeloTabla.getValueAt(filaSeleccionada, 3);
 
-        // Crear un objeto Estudiante con la información
-        Estudiante estudianteSeleccionado = new Estudiante(numeroIdentificacion, nombres, apellidos, fechaNacimiento, tipoContacto);
+        // Crear un objeto ContactoModelo con la información
+        ContactoModelo estudianteSeleccionado = new ContactoModelo(numeroIdentificacion, nombres, apellidos, fechaNacimiento, tipoContacto);
 
         // Abrir la ventana de edición y pasarle el estudiante seleccionado
-        InterfazEditar ventanaEdicion = new InterfazEditar(ListaContactos.this, estudianteDAO, estudianteSeleccionado);
+        InterfazEditar ventanaEdicion = new InterfazEditar(ListaContactos.this, ContactoDAO, estudianteSeleccionado);
         ventanaEdicion.setVisible(true);
     } else {
         JOptionPane.showMessageDialog(ListaContactos.this, "Seleccione un contacto para actualizar", "Advertencia", JOptionPane.WARNING_MESSAGE);

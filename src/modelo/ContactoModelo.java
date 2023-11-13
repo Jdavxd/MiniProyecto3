@@ -11,7 +11,7 @@ package modelo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Estudiante {
+public class ContactoModelo {
     private String numeroIdentificacion;
     private String nombres;
     private String apellidos;
@@ -20,7 +20,7 @@ public class Estudiante {
     private List<String> direcciones;
     private List<Telefono> telefonos;
 
-    public Estudiante(String numeroIdentificacion, String nombres, String apellidos, String fechaNacimiento,String tipoContacto) {
+    public ContactoModelo(String numeroIdentificacion, String nombres, String apellidos, String fechaNacimiento,String tipoContacto) {
         this.direcciones = new ArrayList<>();
         this.telefonos = new ArrayList<>();
         this.numeroIdentificacion = numeroIdentificacion;

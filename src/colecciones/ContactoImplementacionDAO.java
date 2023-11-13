@@ -1,22 +1,24 @@
 package colecciones;
 
-import modelo.Estudiante;
+import modelo.ContactoModelo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
-public class EstudianteImplementacionDAO implements EstudianteDAO {
-    private List<Estudiante> estudiantes = new ArrayList<>();
-    private List<Estudiante> profesores = new ArrayList<>();
-    private List<Estudiante> empleados = new ArrayList<>();
+public class ContactoImplementacionDAO implements ContactoDAO {
+    private List<ContactoModelo> estudiantes = new ArrayList<>();
+    private List<ContactoModelo> profesores = new ArrayList<>();
+    private List<ContactoModelo> empleados = new ArrayList<>();
 
-    private Map<String, List<Estudiante>> contactosPorTipo = new HashMap<>();
+    private Map<String, List<ContactoModelo>> contactosPorTipo = new HashMap<>();
 
     @Override
-    public void agregarEstudiante(Estudiante estudiante) {
+    public void agregarEstudiante(ContactoModelo estudiante) {
         estudiantes.add(estudiante);
 
         // Verificar el tipo de contacto y agregar a la lista correspondiente
@@ -38,19 +40,19 @@ public class EstudianteImplementacionDAO implements EstudianteDAO {
         contactosPorTipo.computeIfAbsent(tipoContacto, k -> new ArrayList<>()).add(estudiante);
     }
 
-    public List<Estudiante> obtenerTodosProfesores() {
+    public List<ContactoModelo> obtenerTodosProfesores() {
         return new ArrayList<>(profesores);
     }
 
-    public List<Estudiante> obtenerTodosEmpleados() {
+    public List<ContactoModelo> obtenerTodosEmpleados() {
         return new ArrayList<>(empleados);
     }
 
     @Override
-    public void actualizarEstudiante(Estudiante estudiante) {
-    for (List<Estudiante> estudiantesPorTipo : contactosPorTipo.values()) {
+    public void actualizarEstudiante(ContactoModelo estudiante) {
+    for (List<ContactoModelo> estudiantesPorTipo : contactosPorTipo.values()) {
         for (int i = 0; i < estudiantesPorTipo.size(); i++) {
-            Estudiante e = estudiantesPorTipo.get(i);
+            ContactoModelo e = estudiantesPorTipo.get(i);
             if (e.getNumeroIdentificacion().equals(estudiante.getNumeroIdentificacion())) {
                 e.setNombres(estudiante.getNombres());
                 e.setApellidos(estudiante.getApellidos());
@@ -63,10 +65,10 @@ public class EstudianteImplementacionDAO implements EstudianteDAO {
     }
 }
 
-    public void eliminarEstudiante(Estudiante estudiante) {
-        Iterator<Estudiante> iterator = estudiantes.iterator();
+    public void eliminarEstudiante(ContactoModelo estudiante) {
+        Iterator<ContactoModelo> iterator = estudiantes.iterator();
         while (iterator.hasNext()) {
-            Estudiante actual = iterator.next();
+            ContactoModelo actual = iterator.next();
             if (actual.equals(estudiante)) {
                 iterator.remove();
                 break; // Terminamos el bucle ya que encontramos y eliminamos el estudiante
@@ -75,9 +77,9 @@ public class EstudianteImplementacionDAO implements EstudianteDAO {
     }
 
     @Override
-    public List<Estudiante> obtenerTodosEstudiantes() {
-        List<Estudiante> todosEstudiantes = new ArrayList<>();
-        for (List<Estudiante> estudiantes : contactosPorTipo.values()) {
+    public List<ContactoModelo> obtenerTodosEstudiantes() {
+        List<ContactoModelo> todosEstudiantes = new ArrayList<>();
+        for (List<ContactoModelo> estudiantes : contactosPorTipo.values()) {
             todosEstudiantes.addAll(estudiantes);
         }
         return todosEstudiantes;
@@ -85,19 +87,32 @@ public class EstudianteImplementacionDAO implements EstudianteDAO {
 
     @Override
     public void eliminarEstudiante(String numeroIdentificacion) {
-        for (List<Estudiante> estudiantes : contactosPorTipo.values()) {
+        for (List<ContactoModelo> estudiantes : contactosPorTipo.values()) {
             estudiantes.removeIf(estudiante -> estudiante.getNumeroIdentificacion().equals(numeroIdentificacion));
         }
     }
 
     @Override
-    public List<Estudiante> obtenerEstudiantesPorTipo(String tipoContacto) {
+    public List<ContactoModelo> obtenerEstudiantesPorTipo(String tipoContacto) {
         return new ArrayList<>(contactosPorTipo.getOrDefault(tipoContacto, new ArrayList<>()));
     }
 
     // Nuevo método para obtener los tipos de contacto disponibles
    @Override
-    public List<String> obtenerTiposDeContacto() {
-        return new ArrayList<>(contactosPorTipo.keySet());
+   public List<String> obtenerTiposDeContacto() {
+    // Crear un conjunto para almacenar los tipos de contacto únicos
+    Set<String> tiposDeContactoSet = new HashSet<>();
+
+    // Iterar sobre todas las listas de contactos
+    for (List<ContactoModelo> estudiantesPorTipo : contactosPorTipo.values()) {
+        // Iterar sobre los contactos en cada lista
+        for (ContactoModelo estudiante : estudiantesPorTipo) {
+            // Agregar el tipo de contacto al conjunto
+            tiposDeContactoSet.add(estudiante.getTipoContacto());
+        }
     }
+
+    // Convertir el conjunto a una lista y devolverla
+    return new ArrayList<>(tiposDeContactoSet);
+}
 }

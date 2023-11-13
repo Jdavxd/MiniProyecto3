@@ -4,22 +4,22 @@
  */
 package colecciones;
 import java.util.ArrayList;
-import modelo.Estudiante;
+import modelo.ContactoModelo;
 /**
  *
  * @author julia
  */
 import java.util.List;
 
-public interface EstudianteDAO {
-    void agregarEstudiante(Estudiante estudiante);
-    List<Estudiante> obtenerTodosProfesores();
-    List<Estudiante> obtenerTodosEmpleados();
-    void actualizarEstudiante(Estudiante estudiante);
-    void eliminarEstudiante(Estudiante estudiante);
-    List<Estudiante> obtenerTodosEstudiantes();
+public interface ContactoDAO {
+    void agregarEstudiante(ContactoModelo estudiante);
+    List<ContactoModelo> obtenerTodosProfesores();
+    List<ContactoModelo> obtenerTodosEmpleados();
+    List<ContactoModelo> obtenerTodosEstudiantes();
+    void actualizarEstudiante(ContactoModelo estudiante);
+    void eliminarEstudiante(ContactoModelo estudiante);
     void eliminarEstudiante(String numeroIdentificacion);
-    List<Estudiante> obtenerEstudiantesPorTipo(String tipoContacto);
+    List<ContactoModelo> obtenerEstudiantesPorTipo(String tipoContacto);
     // Nuevo método para obtener los tipos de contacto disponibles
     List<String> obtenerTiposDeContacto();
 }

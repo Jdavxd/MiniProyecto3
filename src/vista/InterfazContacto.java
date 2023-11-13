@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package vista;
-import controlador.EstudianteController;
+import controlador.ContactoController;
 /**
  *
  * @author julia
@@ -12,11 +12,11 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import colecciones.EstudianteDAO;
-import controlador.EstudianteController;
+import controlador.ContactoController;
+import colecciones.ContactoDAO;
 
-public class InterfazEstudiante extends JFrame {
-    private EstudianteDAO estudianteDAO;
+public class InterfazContacto extends JFrame {
+    private ContactoDAO estudianteDAO;
     private JTextField txtIdentificacion;
     private JTextField txtNombres;
     private JTextField txtApellidos;
@@ -27,7 +27,7 @@ public class InterfazEstudiante extends JFrame {
     
     private ListaContactos listaContactos;
     
-    public InterfazEstudiante(EstudianteDAO estudianteDAO) {
+    public InterfazContacto(ContactoDAO estudianteDAO) {
         this.estudianteDAO = estudianteDAO;
 
         setTitle("Agregar Estudiante");
@@ -61,7 +61,7 @@ public class InterfazEstudiante extends JFrame {
         add(btnAgregar);
 
         // Asignar el controlador
-        EstudianteController controlador = new EstudianteController(this, estudianteDAO, listaContactos);
+        ContactoController controlador = new ContactoController(this, estudianteDAO, listaContactos);
 
         // Configurar el manejador de eventos para el botón Agregar
         btnAgregar.addActionListener(new ActionListener() {

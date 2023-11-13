@@ -3,9 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package controlador;
-import vista.InterfazEstudiante;
-import colecciones.EstudianteDAO;
-import modelo.Estudiante;
+import vista.InterfazContacto;
+import modelo.ContactoModelo;
 /**
  *
  * @author julia
@@ -16,13 +15,14 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import vista.ListaContactos;
+import colecciones.ContactoDAO;
 
-public class EstudianteController {
-    private InterfazEstudiante vista;
-    private EstudianteDAO estudianteDAO;
+public class ContactoController {
+    private InterfazContacto vista;
+    private ContactoDAO estudianteDAO;
      private ListaContactos listaContactos;
 
-    public EstudianteController(InterfazEstudiante vista, EstudianteDAO estudianteDAO, ListaContactos listaContactos ) {
+    public ContactoController(InterfazContacto vista, ContactoDAO estudianteDAO, ListaContactos listaContactos ) {
         this.vista = vista;
         this.estudianteDAO = estudianteDAO;
         this.listaContactos = listaContactos;
@@ -45,8 +45,8 @@ public class EstudianteController {
      String tipoContacto = vista.getTipoContacto();
 
 
-    // Crear una instancia de Estudiante con la información
-   Estudiante nuevoEstudiante = new Estudiante(identificacion, nombres, apellidos, fechaNacimiento,tipoContacto);
+    // Crear una instancia de ContactoModelo con la información
+   ContactoModelo nuevoEstudiante = new ContactoModelo(identificacion, nombres, apellidos, fechaNacimiento,tipoContacto);
     nuevoEstudiante.setNumeroIdentificacion(identificacion);
     nuevoEstudiante.setNombres(nombres);
     nuevoEstudiante.setApellidos(apellidos);
@@ -59,9 +59,9 @@ public class EstudianteController {
     // Limpiar los campos de la vista
     vista.limpiarCampos();
     
-  List<Estudiante> listaEstudiantes = estudianteDAO.obtenerTodosEstudiantes();
+  List<ContactoModelo> listaEstudiantes = estudianteDAO.obtenerTodosEstudiantes();
 System.out.println("Lista de estudiantes después de agregar:");
-for (Estudiante estudiante : listaEstudiantes) {
+for (ContactoModelo estudiante : listaEstudiantes) {
     // Imprimir la información del estudiante y su tipo de contacto
     System.out.println("Tipo de Contacto: " + estudiante.getTipoContacto());
     System.out.println(estudiante); // Esto llama automáticamente al método toString()
@@ -95,8 +95,8 @@ for (Estudiante estudiante : listaEstudiantes) {
             String fechaNacimiento = vista.getFechaNacimiento();
             String tipoContacto = vista.getTipoContacto();
 
-            // Crear una instancia de Estudiante con la información
-            Estudiante nuevoEstudiante = new Estudiante(identificacion, nombres, apellidos, fechaNacimiento,tipoContacto);
+            // Crear una instancia de ContactoModelo con la información
+            ContactoModelo nuevoEstudiante = new ContactoModelo(identificacion, nombres, apellidos, fechaNacimiento,tipoContacto);
             nuevoEstudiante.setNumeroIdentificacion(identificacion);
             nuevoEstudiante.setNombres(nombres);
             nuevoEstudiante.setApellidos(apellidos);

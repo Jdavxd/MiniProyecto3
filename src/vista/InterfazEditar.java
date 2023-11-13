@@ -1,15 +1,15 @@
 package vista;
 
-import colecciones.EstudianteDAO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import modelo.Estudiante;
+import modelo.ContactoModelo;
+import colecciones.ContactoDAO;
 
 public class InterfazEditar extends JFrame {
-    private EstudianteDAO estudianteDAO;
-    private Estudiante estudiante;
+    private ContactoDAO estudianteDAO;
+    private ContactoModelo estudiante;
     private ListaContactos listaContactos;
     private JTextField txtIdentificacion;
     private JTextField txtNombres;
@@ -17,7 +17,7 @@ public class InterfazEditar extends JFrame {
     private JTextField txtFechaNacimiento;
     private JComboBox<String> cmbTipoContacto;
 
-    public InterfazEditar(ListaContactos listaContactos, EstudianteDAO estudianteDAO, Estudiante estudiante) {
+    public InterfazEditar(ListaContactos listaContactos, ContactoDAO estudianteDAO, ContactoModelo estudiante) {
         super("Editar Estudiante");
         this.estudianteDAO = estudianteDAO;
         this.estudiante = estudiante;
@@ -73,7 +73,7 @@ public class InterfazEditar extends JFrame {
     }
 
     private void guardarCambios() {
-        // Actualizar el objeto Estudiante con la nueva información
+        // Actualizar el objeto ContactoModelo con la nueva información
         estudiante.setNumeroIdentificacion(txtIdentificacion.getText());
         estudiante.setNombres(txtNombres.getText());
         estudiante.setApellidos(txtApellidos.getText());

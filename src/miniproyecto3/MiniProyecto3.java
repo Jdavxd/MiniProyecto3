@@ -4,11 +4,11 @@
  */
 package miniproyecto3;
 
-import colecciones.EstudianteDAO;
-import colecciones.EstudianteImplementacionDAO;
+import colecciones.ContactoImplementacionDAO;
 import javax.swing.SwingUtilities;
-import vista.InterfazEstudiante;
+import vista.InterfazContacto;
 import vista.ListaContactos;
+import colecciones.ContactoDAO;
 
 /**
  *
@@ -23,8 +23,8 @@ public class MiniProyecto3 {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                EstudianteDAO estudianteDAO = new EstudianteImplementacionDAO();
-                new InterfazEstudiante(estudianteDAO).setVisible(true);  
+                ContactoDAO estudianteDAO = new ContactoImplementacionDAO();
+                new InterfazContacto(estudianteDAO).setVisible(true);  
 
             }
         });
