@@ -22,7 +22,8 @@ public class InterfazEstudiante extends JFrame {
     private JTextField txtApellidos;
     private JTextField txtFechaNacimiento;
     private JComboBox<String> cmbTipoContacto;
-    private JButton btnAgregar;
+    private JButton btnAgregar; 
+
     
     private ListaContactos listaContactos;
     

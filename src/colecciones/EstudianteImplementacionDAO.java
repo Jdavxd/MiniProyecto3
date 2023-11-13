@@ -48,20 +48,20 @@ public class EstudianteImplementacionDAO implements EstudianteDAO {
 
     @Override
     public void actualizarEstudiante(Estudiante estudiante) {
-        for (List<Estudiante> estudiantesPorTipo : contactosPorTipo.values()) {
-            for (int i = 0; i < estudiantesPorTipo.size(); i++) {
-                Estudiante e = estudiantesPorTipo.get(i);
-                if (e.getNumeroIdentificacion().equals(estudiante.getNumeroIdentificacion())) {
-                    e.setNombres(estudiante.getNombres());
-                    e.setApellidos(estudiante.getApellidos());
-                    e.setFechaNacimiento(estudiante.getFechaNacimiento());
-                    e.setTipoContacto(estudiante.getTipoContacto());
-                    estudiantesPorTipo.set(i, e);
-                    break;
-                }
+    for (List<Estudiante> estudiantesPorTipo : contactosPorTipo.values()) {
+        for (int i = 0; i < estudiantesPorTipo.size(); i++) {
+            Estudiante e = estudiantesPorTipo.get(i);
+            if (e.getNumeroIdentificacion().equals(estudiante.getNumeroIdentificacion())) {
+                e.setNombres(estudiante.getNombres());
+                e.setApellidos(estudiante.getApellidos());
+                e.setFechaNacimiento(estudiante.getFechaNacimiento());
+                e.setTipoContacto(estudiante.getTipoContacto());
+                   
+                break;
             }
         }
     }
+}
 
     public void eliminarEstudiante(Estudiante estudiante) {
         Iterator<Estudiante> iterator = estudiantes.iterator();

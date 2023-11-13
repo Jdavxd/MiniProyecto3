@@ -52,9 +52,7 @@ public class InterfazEditar extends JFrame {
         txtApellidos.setText(estudiante.getApellidos());
         txtFechaNacimiento.setText(estudiante.getFechaNacimiento());
         cmbTipoContacto.setSelectedItem(estudiante.getTipoContacto());
-        var tiposContacto = estudianteDAO.obtenerTiposDeContacto();
-        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(tiposContacto.toArray(new String[0]));
-        cmbTipoContacto.setModel(model);
+
         // Crear un panel para el botón y configurar el diseño
         JPanel panelBoton = new JPanel();
         panelBoton.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -64,9 +62,9 @@ public class InterfazEditar extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 guardarCambios();
-
             }
         });
+
         panelBoton.add(btnGuardar);
         add(panelBoton);
 
@@ -74,27 +72,21 @@ public class InterfazEditar extends JFrame {
         setLocationRelativeTo(null);
     }
 
-   private void guardarCambios() {
-    // Actualizar el objeto Estudiante con la nueva información
-    estudiante.setNumeroIdentificacion(txtIdentificacion.getText());
-    estudiante.setNombres(txtNombres.getText());
-    estudiante.setApellidos(txtApellidos.getText());
-    estudiante.setFechaNacimiento(txtFechaNacimiento.getText());
-    
-    // Obtener el tipo de contacto seleccionado
-    String tipoContactoSeleccionado = cmbTipoContacto.getSelectedItem().toString();
-    estudiante.setTipoContacto(tipoContactoSeleccionado);
+    private void guardarCambios() {
+        // Actualizar el objeto Estudiante con la nueva información
+        estudiante.setNumeroIdentificacion(txtIdentificacion.getText());
+        estudiante.setNombres(txtNombres.getText());
+        estudiante.setApellidos(txtApellidos.getText());
+        estudiante.setFechaNacimiento(txtFechaNacimiento.getText());
+        estudiante.setTipoContacto(cmbTipoContacto.getSelectedItem().toString());
 
-    // Actualizar el estudiante en la lista
-    estudianteDAO.actualizarEstudiante(estudiante);
+        // Actualizar el estudiante en la lista
+        estudianteDAO.actualizarEstudiante(estudiante);
 
-    // Actualizar el modelo del JComboBox con la lista actualizada de tipos de contacto
-    cmbTipoContacto.setModel(new DefaultComboBoxModel<>(estudianteDAO.obtenerTiposDeContacto().toArray(new String[0])));
+        // Cerrar la ventana de edición
+        dispose();
 
-    // Cerrar la ventana de edición
-    dispose();
-
-    JOptionPane.showMessageDialog(this, "Estudiante actualizado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-    listaContactos.actualizarTablaDesdeOtraClase();
-}
+        JOptionPane.showMessageDialog(this, "Estudiante actualizado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        listaContactos.actualizarTablaDesdeOtraClase();
+    }
 }
