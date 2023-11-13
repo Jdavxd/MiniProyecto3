@@ -23,6 +23,7 @@ public class InterfazEditar extends JFrame {
     private JTextField txtNombres;
     private JTextField txtApellidos;
     private JTextField txtFechaNacimiento;
+    private JComboBox<String> cmbTipoContacto;
 
     public InterfazEditar(ListaContactos listaContactos, EstudianteDAO estudianteDAO, Estudiante estudiante) {
         super("Editar Estudiante");
@@ -33,12 +34,16 @@ public class InterfazEditar extends JFrame {
         setTitle("Agregar Estudiante");
         setSize(600, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        
 
         txtIdentificacion = new JTextField(10);
         txtNombres = new JTextField(10);
         txtApellidos = new JTextField(10);
         txtFechaNacimiento = new JTextField(10);
+        cmbTipoContacto = new JComboBox<>(new String[]{"Estudiante", "Profesor", "Empleado"});
 
+        
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
         add(new JLabel("Identificación:"));
@@ -49,13 +54,15 @@ public class InterfazEditar extends JFrame {
         add(txtApellidos);
         add(new JLabel("Fecha de Nacimiento:"));
         add(txtFechaNacimiento);
-       
+        add(new JLabel("Tipo de Contacto:"));
+        add(cmbTipoContacto);
 
         // Configurar los campos de texto con la información del estudiante
         txtIdentificacion.setText(estudiante.getNumeroIdentificacion());
         txtNombres.setText(estudiante.getNombres());
         txtApellidos.setText(estudiante.getApellidos());
         txtFechaNacimiento.setText(estudiante.getFechaNacimiento());
+        cmbTipoContacto.setSelectedItem(estudiante.getTipoContacto());
 
          // Crear un panel para el botón y configurar el diseño
         JPanel panelBoton = new JPanel();

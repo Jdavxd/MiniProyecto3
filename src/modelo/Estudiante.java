@@ -16,16 +16,18 @@ public class Estudiante {
     private String nombres;
     private String apellidos;
     private String fechaNacimiento;
+    private String tipoContacto;
     private List<String> direcciones;
     private List<Telefono> telefonos;
 
-    public Estudiante(String numeroIdentificacion, String nombres, String apellidos, String fechaNacimiento) {
+    public Estudiante(String numeroIdentificacion, String nombres, String apellidos, String fechaNacimiento,String tipoContacto) {
         this.direcciones = new ArrayList<>();
         this.telefonos = new ArrayList<>();
         this.numeroIdentificacion = numeroIdentificacion;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.fechaNacimiento = fechaNacimiento;
+        this.tipoContacto = tipoContacto;
     }
 
     public String getNumeroIdentificacion() {
@@ -75,6 +77,15 @@ public class Estudiante {
     public void agregarTelefono(Telefono telefono) {
         this.telefonos.add(telefono);
     }
+    
+    public String getTipoContacto() {
+        return tipoContacto;
+    }
+    
+    public void setTipoContacto(String tipoContacto) {
+       this.tipoContacto = tipoContacto;
+    }
+
     
     @Override
        public String toString() {

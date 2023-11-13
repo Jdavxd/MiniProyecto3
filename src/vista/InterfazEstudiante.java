@@ -21,7 +21,9 @@ public class InterfazEstudiante extends JFrame {
     private JTextField txtNombres;
     private JTextField txtApellidos;
     private JTextField txtFechaNacimiento;
+    private JComboBox<String> cmbTipoContacto;
     private JButton btnAgregar;
+    
     private ListaContactos listaContactos;
     
     public InterfazEstudiante(EstudianteDAO estudianteDAO) {
@@ -38,6 +40,12 @@ public class InterfazEstudiante extends JFrame {
         btnAgregar = new JButton("Agregar");
 
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        
+         // Inicializar el JComboBox y agregar tipos de contacto
+        cmbTipoContacto = new JComboBox<>();
+        cmbTipoContacto.addItem("Estudiante");
+        cmbTipoContacto.addItem("Profesor");
+        cmbTipoContacto.addItem("Empleado");
 
         add(new JLabel("Identificación:"));
         add(txtIdentificacion);
@@ -47,6 +55,8 @@ public class InterfazEstudiante extends JFrame {
         add(txtApellidos);
         add(new JLabel("Fecha de Nacimiento:"));
         add(txtFechaNacimiento);
+        add(new JLabel("Tipo de Contacto:"));
+        add(cmbTipoContacto);
         add(btnAgregar);
 
         // Asignar el controlador
@@ -76,6 +86,10 @@ public class InterfazEstudiante extends JFrame {
 
     public String getFechaNacimiento() {
         return txtFechaNacimiento.getText();
+    }
+    
+   public String getTipoContacto() {
+        return cmbTipoContacto.getSelectedItem().toString();
     }
 
     public void limpiarCampos() {

@@ -42,13 +42,16 @@ public class EstudianteController {
     String nombres = vista.getNombres();
     String apellidos = vista.getApellidos();
     String fechaNacimiento = vista.getFechaNacimiento();
+     String tipoContacto = vista.getTipoContacto();
+
 
     // Crear una instancia de Estudiante con la información
-   Estudiante nuevoEstudiante = new Estudiante(identificacion, nombres, apellidos, fechaNacimiento);
+   Estudiante nuevoEstudiante = new Estudiante(identificacion, nombres, apellidos, fechaNacimiento,tipoContacto);
     nuevoEstudiante.setNumeroIdentificacion(identificacion);
     nuevoEstudiante.setNombres(nombres);
     nuevoEstudiante.setApellidos(apellidos);
     nuevoEstudiante.setFechaNacimiento(fechaNacimiento);
+    nuevoEstudiante.setTipoContacto(tipoContacto);
 
     // Agregar el estudiante utilizando el DAO
     estudianteDAO.agregarEstudiante(nuevoEstudiante);
@@ -88,13 +91,15 @@ public class EstudianteController {
             String nombres = vista.getNombres();
             String apellidos = vista.getApellidos();
             String fechaNacimiento = vista.getFechaNacimiento();
+            String tipoContacto = vista.getTipoContacto();
 
             // Crear una instancia de Estudiante con la información
-            Estudiante nuevoEstudiante = new Estudiante(identificacion, nombres, apellidos, fechaNacimiento);
+            Estudiante nuevoEstudiante = new Estudiante(identificacion, nombres, apellidos, fechaNacimiento,tipoContacto);
             nuevoEstudiante.setNumeroIdentificacion(identificacion);
             nuevoEstudiante.setNombres(nombres);
             nuevoEstudiante.setApellidos(apellidos);
             nuevoEstudiante.setFechaNacimiento(fechaNacimiento);
+            nuevoEstudiante.setTipoContacto(tipoContacto);
 
 
             // Limpiar los campos de la vista

@@ -86,8 +86,17 @@ public class ListaContactos extends JFrame {
     }
 
     // Método para agregar una fila a la tabla con la información del estudiante
-    private void agregarFilaTabla(Estudiante estudiante) {
-        Object[] fila = {estudiante.getNumeroIdentificacion(), estudiante.getNombres(), estudiante.getApellidos(), estudiante.getFechaNacimiento()};
+       private void agregarFilaTabla(Estudiante estudiante) {
+        // Modificar según el tipo de contacto
+        String tipoContacto = estudiante.getTipoContacto();
+
+        Object[] fila = {
+                estudiante.getNumeroIdentificacion(),
+                estudiante.getNombres(),
+                estudiante.getApellidos(),
+                estudiante.getFechaNacimiento(),
+                tipoContacto
+        };
         modeloTabla.addRow(fila);
     }
     
@@ -119,9 +128,10 @@ public void actualizarTablaDesdeOtraClase() {
             String nombres = (String) modeloTabla.getValueAt(filaSeleccionada, 1);
             String apellidos = (String) modeloTabla.getValueAt(filaSeleccionada, 2);
             String fechaNacimiento = (String) modeloTabla.getValueAt(filaSeleccionada, 3);
+            String tipoContacto = (String) modeloTabla.getValueAt(filaSeleccionada, 3);
 
             // Crear un objeto Estudiante con la información
-            Estudiante estudianteSeleccionado = new Estudiante(numeroIdentificacion, nombres, apellidos, fechaNacimiento);
+            Estudiante estudianteSeleccionado = new Estudiante(numeroIdentificacion, nombres, apellidos, fechaNacimiento,tipoContacto);
 
             // Abrir la ventana de edición y pasarle el estudiante seleccionado
             InterfazEditar ventanaEdicion = new InterfazEditar(ListaContactos.this, estudianteDAO, estudianteSeleccionado);
