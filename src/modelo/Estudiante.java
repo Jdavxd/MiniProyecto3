@@ -19,9 +19,13 @@ public class Estudiante {
     private List<String> direcciones;
     private List<Telefono> telefonos;
 
-    public Estudiante() {
+    public Estudiante(String numeroIdentificacion, String nombres, String apellidos, String fechaNacimiento) {
         this.direcciones = new ArrayList<>();
         this.telefonos = new ArrayList<>();
+        this.numeroIdentificacion = numeroIdentificacion;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public String getNumeroIdentificacion() {

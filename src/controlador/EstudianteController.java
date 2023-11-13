@@ -44,7 +44,7 @@ public class EstudianteController {
     String fechaNacimiento = vista.getFechaNacimiento();
 
     // Crear una instancia de Estudiante con la información
-    Estudiante nuevoEstudiante = new Estudiante();
+   Estudiante nuevoEstudiante = new Estudiante(identificacion, nombres, apellidos, fechaNacimiento);
     nuevoEstudiante.setNumeroIdentificacion(identificacion);
     nuevoEstudiante.setNombres(nombres);
     nuevoEstudiante.setApellidos(apellidos);
@@ -70,11 +70,12 @@ public class EstudianteController {
     JOptionPane.showMessageDialog(vista, "Estudiante agregado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     
      if (listaContactos != null) {
-        listaContactos.dispose();
+        listaContactos.setVisible(false);
     }
       SwingUtilities.invokeLater(() -> {
         listaContactos = new ListaContactos(estudianteDAO);
         setListaContactos(listaContactos);
+        listaContactos.actualizarTabla();
     });
 }
 
@@ -89,14 +90,12 @@ public class EstudianteController {
             String fechaNacimiento = vista.getFechaNacimiento();
 
             // Crear una instancia de Estudiante con la información
-            Estudiante nuevoEstudiante = new Estudiante();
+            Estudiante nuevoEstudiante = new Estudiante(identificacion, nombres, apellidos, fechaNacimiento);
             nuevoEstudiante.setNumeroIdentificacion(identificacion);
             nuevoEstudiante.setNombres(nombres);
             nuevoEstudiante.setApellidos(apellidos);
             nuevoEstudiante.setFechaNacimiento(fechaNacimiento);
 
-            // Agregar el estudiante utilizando el DAO
-            estudianteDAO.agregarEstudiante(nuevoEstudiante);
 
             // Limpiar los campos de la vista
             vista.limpiarCampos();

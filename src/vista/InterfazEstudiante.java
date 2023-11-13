@@ -56,9 +56,10 @@ public class InterfazEstudiante extends JFrame {
         btnAgregar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controlador.agregarEstudiante ();
+                controlador.agregarEstudiante();
             }
         });
+        setLocationRelativeTo(null);
     }
 
     public String getIdentificacion() {

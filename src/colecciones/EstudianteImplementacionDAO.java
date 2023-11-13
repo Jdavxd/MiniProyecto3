@@ -20,9 +20,18 @@ public class EstudianteImplementacionDAO implements EstudianteDAO {
         estudiantes.add(estudiante);
     }
 
-    @Override
+      @Override
     public void actualizarEstudiante(Estudiante estudiante) {
-        // Implementar la actualización según sea necesario
+        for (Estudiante e : estudiantes) {
+            if (e.getNumeroIdentificacion().equals(estudiante.getNumeroIdentificacion())) {
+                // Actualizar los atributos del estudiante encontrado
+                e.setNombres(estudiante.getNombres());
+                e.setApellidos(estudiante.getApellidos());
+                e.setFechaNacimiento(estudiante.getFechaNacimiento());
+                // Puedes seguir actualizando otros atributos según sea necesario
+                break; // Terminamos el bucle ya que encontramos y actualizamos el estudiante
+            }
+        }
     }
 
        public void eliminarEstudiante(Estudiante estudiante) {

@@ -5,6 +5,10 @@
 package vista;
 
 import colecciones.EstudianteDAO;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
@@ -37,8 +41,9 @@ public class ListaContactos extends JFrame {
                 return false;
             }
         };
-         
-         
+         // Deshabilitar la reordenación de columnas
+        tablaContactos.getTableHeader().setReorderingAllowed(false);
+         setLocationRelativeTo(null);
          
          
 
@@ -47,9 +52,33 @@ public class ListaContactos extends JFrame {
         for (Estudiante contacto : contactos) {
             agregarFilaTabla(contacto);
         }
+        
+        
+        // Crear el botón "Actualizar"
+        JButton btnActualizar = new JButton("Actualizar");
+        // Configurar el manejador de eventos para el botón Actualizar
+        btnActualizar.addActionListener(e -> actualizarTabla());
+        
 
-        // Agregar la tabla al contenedor
-        add(new JScrollPane(tablaContactos));
+        
+        
+        // Configurar el manejador de eventos para el botón Actualizar
+        btnActualizar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                abrirVentanaEdicion();
+            }
+        });
+
+        // Crear un panel para agregar el botón y configurar el layout
+       add(new JScrollPane(tablaContactos), BorderLayout.CENTER);
+
+        // Crear un panel para agregar el botón y configurar el layout
+        JPanel panelBoton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        panelBoton.add(btnActualizar);
+
+        // Agregar el panel con el botón al contenedor
+        add(panelBoton, BorderLayout.SOUTH);
 
         // Hacer visible la interfaz
         setVisible(true);
@@ -65,12 +94,37 @@ public class ListaContactos extends JFrame {
 
     // Método para actualizar la tabla cuando sea necesario
 public void actualizarTabla() {
-        modeloTabla.setRowCount(0);
-        List<Estudiante> contactos = estudianteDAO.obtenerTodosEstudiantes();
-        for (Estudiante contacto : contactos) {
-            agregarFilaTabla(contacto);
+    modeloTabla.setRowCount(0);  // Limpiar la tabla antes de agregar las filas actualizadas
+    List<Estudiante> contactos = estudianteDAO.obtenerTodosEstudiantes();
+    for (Estudiante contacto : contactos) {
+        agregarFilaTabla(contacto);
+    }
+}
+
+
+
+        private void abrirVentanaEdicion() {
+        // Obtener la fila seleccionada
+        int filaSeleccionada = tablaContactos.getSelectedRow();
+
+        // Verificar si se seleccionó una fila
+        if (filaSeleccionada >= 0) {
+            // Obtener la información de la fila seleccionada
+            String numeroIdentificacion = (String) modeloTabla.getValueAt(filaSeleccionada, 0);
+            String nombres = (String) modeloTabla.getValueAt(filaSeleccionada, 1);
+            String apellidos = (String) modeloTabla.getValueAt(filaSeleccionada, 2);
+            String fechaNacimiento = (String) modeloTabla.getValueAt(filaSeleccionada, 3);
+
+            // Crear un objeto Estudiante con la información
+            Estudiante estudianteSeleccionado = new Estudiante(numeroIdentificacion, nombres, apellidos, fechaNacimiento);
+
+            // Abrir la ventana de edición y pasarle el estudiante seleccionado
+            InterfazEditar ventanaEdicion = new InterfazEditar(ListaContactos.this, estudianteDAO, estudianteSeleccionado);
+            ventanaEdicion.setVisible(true);
+            
+        } else {
+            JOptionPane.showMessageDialog(ListaContactos.this, "Seleccione un contacto para actualizar", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     }
-
     // Otros métodos y funcionalidades según tus necesidades
 }
