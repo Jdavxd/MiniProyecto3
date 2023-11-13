@@ -56,15 +56,17 @@ public class EstudianteController {
     // Agregar el estudiante utilizando el DAO
     estudianteDAO.agregarEstudiante(nuevoEstudiante);
     
- 
     // Limpiar los campos de la vista
     vista.limpiarCampos();
     
-     List<Estudiante> listaEstudiantes = estudianteDAO.obtenerTodosEstudiantes();
-    System.out.println("Lista de estudiantes después de agregar:");
-    for (Estudiante estudiante : listaEstudiantes) {
-        System.out.println(estudiante); // Esto llama automáticamente al método toString()
-    }
+  List<Estudiante> listaEstudiantes = estudianteDAO.obtenerTodosEstudiantes();
+System.out.println("Lista de estudiantes después de agregar:");
+for (Estudiante estudiante : listaEstudiantes) {
+    // Imprimir la información del estudiante y su tipo de contacto
+    System.out.println("Tipo de Contacto: " + estudiante.getTipoContacto());
+    System.out.println(estudiante); // Esto llama automáticamente al método toString()
+    System.out.println("-----------");
+}
     
     
 

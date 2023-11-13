@@ -30,7 +30,7 @@ public class InterfazEstudiante extends JFrame {
         this.estudianteDAO = estudianteDAO;
 
         setTitle("Agregar Estudiante");
-        setSize(300, 200);
+        setSize(600, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         txtIdentificacion = new JTextField(10);

@@ -1,41 +1,70 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package colecciones;
+
 import modelo.Estudiante;
-/**
- *
- * @author julia
- */
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class EstudianteImplementacionDAO implements EstudianteDAO {
     private List<Estudiante> estudiantes = new ArrayList<>();
+    private List<Estudiante> profesores = new ArrayList<>();
+    private List<Estudiante> empleados = new ArrayList<>();
+
+    private Map<String, List<Estudiante>> contactosPorTipo = new HashMap<>();
 
     @Override
     public void agregarEstudiante(Estudiante estudiante) {
         estudiantes.add(estudiante);
+
+        // Verificar el tipo de contacto y agregar a la lista correspondiente
+        String tipoContacto = estudiante.getTipoContacto();
+        switch (tipoContacto) {
+            case "Estudiante":
+                // Puedes hacer algo específico para estudiantes si lo necesitas
+                break;
+            case "Profesor":
+                profesores.add(estudiante);
+                break;
+            case "Empleado":
+                empleados.add(estudiante);
+                break;
+            // Puedes agregar más casos según sea necesario
+        }
+
+        // Agregar a la lista general por tipo de contacto
+        contactosPorTipo.computeIfAbsent(tipoContacto, k -> new ArrayList<>()).add(estudiante);
     }
 
-      @Override
+    public List<Estudiante> obtenerTodosProfesores() {
+        return new ArrayList<>(profesores);
+    }
+
+    public List<Estudiante> obtenerTodosEmpleados() {
+        return new ArrayList<>(empleados);
+    }
+
+    @Override
     public void actualizarEstudiante(Estudiante estudiante) {
-        for (Estudiante e : estudiantes) {
-            if (e.getNumeroIdentificacion().equals(estudiante.getNumeroIdentificacion())) {
-                // Actualizar los atributos del estudiante encontrado
-                e.setNombres(estudiante.getNombres());
-                e.setApellidos(estudiante.getApellidos());
-                e.setFechaNacimiento(estudiante.getFechaNacimiento());
-                // Puedes seguir actualizando otros atributos según sea necesario
-                break; // Terminamos el bucle ya que encontramos y actualizamos el estudiante
+        for (List<Estudiante> estudiantesPorTipo : contactosPorTipo.values()) {
+            for (int i = 0; i < estudiantesPorTipo.size(); i++) {
+                Estudiante e = estudiantesPorTipo.get(i);
+                if (e.getNumeroIdentificacion().equals(estudiante.getNumeroIdentificacion())) {
+                    e.setNombres(estudiante.getNombres());
+                    e.setApellidos(estudiante.getApellidos());
+                    e.setFechaNacimiento(estudiante.getFechaNacimiento());
+                    e.setTipoContacto(estudiante.getTipoContacto());
+                    estudiantesPorTipo.set(i, e);
+                    break;
+                }
             }
         }
     }
 
-       public void eliminarEstudiante(Estudiante estudiante) {
-        Iterator<Estudiante> iterator = listaEstudiantes.iterator();
+    public void eliminarEstudiante(Estudiante estudiante) {
+        Iterator<Estudiante> iterator = estudiantes.iterator();
         while (iterator.hasNext()) {
             Estudiante actual = iterator.next();
             if (actual.equals(estudiante)) {
@@ -47,11 +76,28 @@ public class EstudianteImplementacionDAO implements EstudianteDAO {
 
     @Override
     public List<Estudiante> obtenerTodosEstudiantes() {
-        return new ArrayList<>(estudiantes);
+        List<Estudiante> todosEstudiantes = new ArrayList<>();
+        for (List<Estudiante> estudiantes : contactosPorTipo.values()) {
+            todosEstudiantes.addAll(estudiantes);
+        }
+        return todosEstudiantes;
     }
 
     @Override
     public void eliminarEstudiante(String numeroIdentificacion) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        for (List<Estudiante> estudiantes : contactosPorTipo.values()) {
+            estudiantes.removeIf(estudiante -> estudiante.getNumeroIdentificacion().equals(numeroIdentificacion));
+        }
+    }
+
+    @Override
+    public List<Estudiante> obtenerEstudiantesPorTipo(String tipoContacto) {
+        return new ArrayList<>(contactosPorTipo.getOrDefault(tipoContacto, new ArrayList<>()));
+    }
+
+    // Nuevo método para obtener los tipos de contacto disponibles
+   @Override
+    public List<String> obtenerTiposDeContacto() {
+        return new ArrayList<>(contactosPorTipo.keySet());
     }
 }

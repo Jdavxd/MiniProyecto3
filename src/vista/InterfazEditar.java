@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package vista;
-import vista.ListaContactos;
-/**
- *
- * @author julia
- */
+
 import colecciones.EstudianteDAO;
 import javax.swing.*;
 import java.awt.*;
@@ -30,20 +22,17 @@ public class InterfazEditar extends JFrame {
         this.estudianteDAO = estudianteDAO;
         this.estudiante = estudiante;
         this.listaContactos = listaContactos;
-        
-        setTitle("Agregar Estudiante");
+
+        setTitle("Editar Estudiante");
         setSize(600, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        
 
         txtIdentificacion = new JTextField(10);
         txtNombres = new JTextField(10);
         txtApellidos = new JTextField(10);
         txtFechaNacimiento = new JTextField(10);
-        cmbTipoContacto = new JComboBox<>(new String[]{"Estudiante", "Profesor", "Empleado"});
+        cmbTipoContacto = new JComboBox<>(estudianteDAO.obtenerTiposDeContacto().toArray(new String[0]));
 
-        
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
         add(new JLabel("Identificación:"));
@@ -63,44 +52,49 @@ public class InterfazEditar extends JFrame {
         txtApellidos.setText(estudiante.getApellidos());
         txtFechaNacimiento.setText(estudiante.getFechaNacimiento());
         cmbTipoContacto.setSelectedItem(estudiante.getTipoContacto());
-
-         // Crear un panel para el botón y configurar el diseño
+        var tiposContacto = estudianteDAO.obtenerTiposDeContacto();
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(tiposContacto.toArray(new String[0]));
+        cmbTipoContacto.setModel(model);
+        // Crear un panel para el botón y configurar el diseño
         JPanel panelBoton = new JPanel();
         panelBoton.setLayout(new FlowLayout(FlowLayout.RIGHT));
         JButton btnGuardar = new JButton("Guardar");
-        
-        
 
-        
         btnGuardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
                 guardarCambios();
-                
+
             }
         });
-panelBoton.add(btnGuardar);
-     add(panelBoton);
+        panelBoton.add(btnGuardar);
+        add(panelBoton);
 
         // Centrar la ventana en relación con la ventana principal
         setLocationRelativeTo(null);
     }
 
-    private void guardarCambios() {
-        // Actualizar el objeto Estudiante con la nueva información
-        estudiante.setNumeroIdentificacion(txtIdentificacion.getText());
-        estudiante.setNombres(txtNombres.getText());
-        estudiante.setApellidos(txtApellidos.getText());
-        estudiante.setFechaNacimiento(txtFechaNacimiento.getText());
+   private void guardarCambios() {
+    // Actualizar el objeto Estudiante con la nueva información
+    estudiante.setNumeroIdentificacion(txtIdentificacion.getText());
+    estudiante.setNombres(txtNombres.getText());
+    estudiante.setApellidos(txtApellidos.getText());
+    estudiante.setFechaNacimiento(txtFechaNacimiento.getText());
+    
+    // Obtener el tipo de contacto seleccionado
+    String tipoContactoSeleccionado = cmbTipoContacto.getSelectedItem().toString();
+    estudiante.setTipoContacto(tipoContactoSeleccionado);
 
-        // Actualizar el estudiante en la lista
-        estudianteDAO.actualizarEstudiante(estudiante);
+    // Actualizar el estudiante en la lista
+    estudianteDAO.actualizarEstudiante(estudiante);
 
-        // Cerrar la ventana de edición
-        dispose();
-      
-        JOptionPane.showMessageDialog(this, "Estudiante actualizado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-         listaContactos.actualizarTablaDesdeOtraClase();
-    }
+    // Actualizar el modelo del JComboBox con la lista actualizada de tipos de contacto
+    cmbTipoContacto.setModel(new DefaultComboBoxModel<>(estudianteDAO.obtenerTiposDeContacto().toArray(new String[0])));
+
+    // Cerrar la ventana de edición
+    dispose();
+
+    JOptionPane.showMessageDialog(this, "Estudiante actualizado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    listaContactos.actualizarTablaDesdeOtraClase();
+}
 }

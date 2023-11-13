@@ -13,8 +13,13 @@ import java.util.List;
 
 public interface EstudianteDAO {
     void agregarEstudiante(Estudiante estudiante);
+    List<Estudiante> obtenerTodosProfesores();
+    List<Estudiante> obtenerTodosEmpleados();
     void actualizarEstudiante(Estudiante estudiante);
-    void eliminarEstudiante(String numeroIdentificacion);
+    void eliminarEstudiante(Estudiante estudiante);
     List<Estudiante> obtenerTodosEstudiantes();
-    List<Estudiante> listaEstudiantes = new ArrayList<>();
+    void eliminarEstudiante(String numeroIdentificacion);
+    List<Estudiante> obtenerEstudiantesPorTipo(String tipoContacto);
+    // Nuevo método para obtener los tipos de contacto disponibles
+    List<String> obtenerTiposDeContacto();
 }
