@@ -40,33 +40,44 @@ public class ContactoImplementacionDAO implements ContactoDAO {
         contactosPorTipo.computeIfAbsent(tipoContacto, k -> new ArrayList<>()).add(contacto);
     }
 
+    @Override
     public List<ContactoModelo> obtenerTodosProfesores() {
         return new ArrayList<>(profesores);
     }
 
+    @Override
     public List<ContactoModelo> obtenerTodosEmpleados() {
         return new ArrayList<>(empleados);
     }
 
    
-    public void actualizarContacto(ContactoModelo contacto) {
-    for (List<ContactoModelo> estudiantesPorTipo : contactosPorTipo.values()) {
-        for (int i = 0; i < estudiantesPorTipo.size(); i++) {
-            ContactoModelo e = estudiantesPorTipo.get(i);
+    @Override
+public void actualizarContacto(ContactoModelo contacto) {
+    String tipoContacto = contacto.getTipoContacto();
+    List<ContactoModelo> listaEspecifica = contactosPorTipo.get(tipoContacto);
+
+    if (listaEspecifica != null) {
+        int index = -1;
+
+        // Buscar el índice del contacto en la lista específica
+        for (int i = 0; i < listaEspecifica.size(); i++) {
+            ContactoModelo e = listaEspecifica.get(i);
             if (e.getNumeroIdentificacion().equals(contacto.getNumeroIdentificacion())) {
-                e.setNombres(contacto.getNombres());
-                e.setApellidos(contacto.getApellidos());
-                e.setFechaNacimiento(contacto.getFechaNacimiento());
-                e.setTipoContacto(contacto.getTipoContacto());
-                   
+                index = i;
                 break;
             }
+        }
+
+        if (index != -1) {
+            // Actualizar el contacto en la lista específica
+            listaEspecifica.set(index, contacto);
         }
     }
 }
 
    
-public void eliminarContacto(ContactoModelo contacto) {
+    @Override
+    public void eliminarContacto(ContactoModelo contacto) {
     Iterator<ContactoModelo> iterator = estudiantes.iterator();
     while (iterator.hasNext()) {
         ContactoModelo actual = iterator.next();
@@ -96,13 +107,15 @@ private void eliminarDeListaEspecifica(ContactoModelo contacto, String tipoConta
     }
 
     
+    @Override
     public void eliminarContacto(String numeroIdentificacion) {
         for (List<ContactoModelo> estudiantes : contactosPorTipo.values()) {
             estudiantes.removeIf(estudiante -> estudiante.getNumeroIdentificacion().equals(numeroIdentificacion));
         }
     }
 
-public List<ContactoModelo> obtenerContactosPorTipo(String tipoContacto) {
+    @Override
+    public List<ContactoModelo> obtenerContactosPorTipo(String tipoContacto) {
     List<ContactoModelo> contactosPorTipoLista = contactosPorTipo.getOrDefault(tipoContacto, new ArrayList<>());
     return new ArrayList<>(contactosPorTipoLista);
 }

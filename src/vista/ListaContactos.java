@@ -63,7 +63,7 @@ public class ListaContactos extends JFrame {
         JButton btnEliminar = new JButton("Eliminar");
         JButton btnCargarEstudiantes = new JButton("Cargar Estudiantes");
         JButton btnCargarEmpleados = new JButton("Cargar Empleados");
-        btnActualizar.addActionListener(e -> actualizarTabla());
+        //btnActualizar.addActionListener(e -> actualizarTabla());
 
         btnCargarEstudiantes.addActionListener(e -> cargarEstudiantes());
         btnCargarEmpleados.addActionListener(e -> cargarEmpleados());
@@ -159,7 +159,7 @@ private void eliminarContacto() {
     }
 }
 
-private void actualizarTablaPorTipo(String tipoContacto) {
+public void actualizarTablaPorTipo(String tipoContacto) {
     List<ContactoModelo> contactosPorTipoLista = ContactoDAO.obtenerContactosPorTipo(tipoContacto);
 
     // Limpiar la tabla antes de agregar las filas actualizadas
@@ -190,7 +190,7 @@ public void actualizarTablaDesdeOtraClase() {
 
 
 
-   private void abrirVentanaEdicion() {
+private void abrirVentanaEdicion() {
     // Obtener la fila seleccionada
     int filaSeleccionada = tablaContactos.getSelectedRow();
 
@@ -201,15 +201,15 @@ public void actualizarTablaDesdeOtraClase() {
         String nombres = (String) modeloTabla.getValueAt(filaSeleccionada, 1);
         String apellidos = (String) modeloTabla.getValueAt(filaSeleccionada, 2);
         String fechaNacimiento = (String) modeloTabla.getValueAt(filaSeleccionada, 3);
-        
+
         // Corregir el índice para obtener el tipo de contacto desde la columna 4
-        String tipoContacto = (String) modeloTabla.getValueAt(filaSeleccionada, 3);
+        String tipoContacto = (String) modeloTabla.getValueAt(filaSeleccionada, 4);
 
         // Crear un objeto ContactoModelo con la información
         ContactoModelo estudianteSeleccionado = new ContactoModelo(numeroIdentificacion, nombres, apellidos, fechaNacimiento, tipoContacto);
 
         // Abrir la ventana de edición y pasarle el estudiante seleccionado
-        InterfazEditar ventanaEdicion = new InterfazEditar(ListaContactos.this, ContactoDAO, estudianteSeleccionado);
+       InterfazEditar ventanaEdicion = new InterfazEditar(ListaContactos.this, ContactoDAO, estudianteSeleccionado);
         ventanaEdicion.setVisible(true);
     } else {
         JOptionPane.showMessageDialog(ListaContactos.this, "Seleccione un contacto para actualizar", "Advertencia", JOptionPane.WARNING_MESSAGE);

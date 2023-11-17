@@ -18,12 +18,12 @@ public class InterfazEditar extends JFrame {
     private JComboBox<String> cmbTipoContacto;
 
     public InterfazEditar(ListaContactos listaContactos, ContactoDAO estudianteDAO, ContactoModelo estudiante) {
-        super("Editar Estudiante");
+        super("Editar Contacto");
         this.estudianteDAO = estudianteDAO;
         this.estudiante = estudiante;
         this.listaContactos = listaContactos;
 
-        setTitle("Editar Estudiante");
+        setTitle("Editar Contacto");
         setSize(600, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -34,7 +34,9 @@ public class InterfazEditar extends JFrame {
         cmbTipoContacto = new JComboBox<>(estudianteDAO.obtenerTiposDeContacto().toArray(new String[0]));
 
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-
+      //  cmbTipoContacto.addItem("Estudiante");
+      //  cmbTipoContacto.addItem("Profesor");
+      //  cmbTipoContacto.addItem("Empleado");
         add(new JLabel("Identificación:"));
         add(txtIdentificacion);
         add(new JLabel("Nombres:"));
@@ -72,7 +74,7 @@ public class InterfazEditar extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    private void guardarCambios() {
+ private void guardarCambios() {
         // Actualizar el objeto ContactoModelo con la nueva información
         estudiante.setNumeroIdentificacion(txtIdentificacion.getText());
         estudiante.setNombres(txtNombres.getText());
@@ -86,7 +88,8 @@ public class InterfazEditar extends JFrame {
         // Cerrar la ventana de edición
         dispose();
 
-        JOptionPane.showMessageDialog(this, "Estudiante actualizado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        listaContactos.actualizarTablaDesdeOtraClase();
+        // Mostrar la lista actualizada correspondiente al tipo de contacto en la ventana principal
+        JOptionPane.showMessageDialog(this, "Contacto actualizado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        listaContactos.actualizarTablaPorTipo(estudiante.getTipoContacto());
     }
 }
