@@ -16,10 +16,10 @@ public interface ContactoDAO {
     List<ContactoModelo> obtenerTodosProfesores();
     List<ContactoModelo> obtenerTodosEmpleados();
     List<ContactoModelo> obtenerTodosEstudiantes();
-    void actualizarEstudiante(ContactoModelo estudiante);
-    void eliminarEstudiante(ContactoModelo estudiante);
-    void eliminarEstudiante(String numeroIdentificacion);
-    List<ContactoModelo> obtenerEstudiantesPorTipo(String tipoContacto);
+    void actualizarContacto(ContactoModelo contacto);
+    void eliminarContacto(ContactoModelo contacto);
+    void eliminarContacto(String numeroIdentificacion);
+    List<ContactoModelo> obtenerContactosPorTipo(String tipoContacto);
     // Nuevo método para obtener los tipos de contacto disponibles
     List<String> obtenerTiposDeContacto();
 }

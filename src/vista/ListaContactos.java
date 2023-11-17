@@ -32,6 +32,8 @@ public class ListaContactos extends JFrame {
         modeloTabla.addColumn("Nombres");
         modeloTabla.addColumn("Apellidos");
         modeloTabla.addColumn("Fecha de Nacimiento");
+        modeloTabla.addColumn("TIPO");
+
 
         // Crear la tabla con el modelo
          tablaContactos = new JTable(modeloTabla) {
@@ -81,6 +83,7 @@ public class ListaContactos extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 
                 eliminarEstudiante();
+                actualizarTablaDesdeOtraClase();
             }
         });
          
@@ -123,16 +126,16 @@ public class ListaContactos extends JFrame {
        
     private void cargarEstudiantes() {
     modeloTabla.setRowCount(0);  // Limpiar la tabla antes de agregar las filas actualizadas
-    List<ContactoModelo> estudiantes = ContactoDAO.obtenerEstudiantesPorTipo("Estudiante");
+    List<ContactoModelo> estudiantes = ContactoDAO.obtenerContactosPorTipo("Estudiante");
     for (ContactoModelo estudiante : estudiantes) {
         agregarFilaTabla(estudiante);
     }
 }
            
            
-            private void cargarEmpleados() {
+       private void cargarEmpleados() {
         modeloTabla.setRowCount(0);  // Limpiar la tabla antes de agregar las filas actualizadas
-        List<ContactoModelo> empleados = ContactoDAO.obtenerTodosEmpleados();
+        List<ContactoModelo> empleados = ContactoDAO.obtenerContactosPorTipo("Empleado");
         for (ContactoModelo empleado : empleados) {
             agregarFilaTabla(empleado);
         }
@@ -148,7 +151,7 @@ private void eliminarEstudiante() {
         String numeroIdentificacion = (String) modeloTabla.getValueAt(filaSeleccionada, 0);
 
         // Eliminar el estudiante utilizando el método en el DAO
-        ContactoDAO.eliminarEstudiante(numeroIdentificacion);
+        ContactoDAO.eliminarContacto(numeroIdentificacion);
 
         // Actualizar la tabla
         actualizarTablaDesdeOtraClase();

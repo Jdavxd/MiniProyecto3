@@ -15,29 +15,29 @@ public class ContactoImplementacionDAO implements ContactoDAO {
     private List<ContactoModelo> profesores = new ArrayList<>();
     private List<ContactoModelo> empleados = new ArrayList<>();
 
-    private Map<String, List<ContactoModelo>> contactosPorTipo = new HashMap<>();
+    private Map<String, List<ContactoModelo>> contactosPorTipo = new HashMap<>();;
 
     @Override
-    public void agregarEstudiante(ContactoModelo estudiante) {
-        estudiantes.add(estudiante);
+    public void agregarEstudiante(ContactoModelo contacto) {
+        estudiantes.add(contacto);
 
         // Verificar el tipo de contacto y agregar a la lista correspondiente
-        String tipoContacto = estudiante.getTipoContacto();
+        String tipoContacto = contacto.getTipoContacto();
         switch (tipoContacto) {
             case "Estudiante":
                 // Puedes hacer algo específico para estudiantes si lo necesitas
                 break;
             case "Profesor":
-                profesores.add(estudiante);
+                profesores.add(contacto);
                 break;
             case "Empleado":
-                empleados.add(estudiante);
+                empleados.add(contacto);
                 break;
             // Puedes agregar más casos según sea necesario
         }
 
         // Agregar a la lista general por tipo de contacto
-        contactosPorTipo.computeIfAbsent(tipoContacto, k -> new ArrayList<>()).add(estudiante);
+        contactosPorTipo.computeIfAbsent(tipoContacto, k -> new ArrayList<>()).add(contacto);
     }
 
     public List<ContactoModelo> obtenerTodosProfesores() {
@@ -48,16 +48,16 @@ public class ContactoImplementacionDAO implements ContactoDAO {
         return new ArrayList<>(empleados);
     }
 
-    @Override
-    public void actualizarEstudiante(ContactoModelo estudiante) {
+   
+    public void actualizarContacto(ContactoModelo contacto) {
     for (List<ContactoModelo> estudiantesPorTipo : contactosPorTipo.values()) {
         for (int i = 0; i < estudiantesPorTipo.size(); i++) {
             ContactoModelo e = estudiantesPorTipo.get(i);
-            if (e.getNumeroIdentificacion().equals(estudiante.getNumeroIdentificacion())) {
-                e.setNombres(estudiante.getNombres());
-                e.setApellidos(estudiante.getApellidos());
-                e.setFechaNacimiento(estudiante.getFechaNacimiento());
-                e.setTipoContacto(estudiante.getTipoContacto());
+            if (e.getNumeroIdentificacion().equals(contacto.getNumeroIdentificacion())) {
+                e.setNombres(contacto.getNombres());
+                e.setApellidos(contacto.getApellidos());
+                e.setFechaNacimiento(contacto.getFechaNacimiento());
+                e.setTipoContacto(contacto.getTipoContacto());
                    
                 break;
             }
@@ -65,16 +65,26 @@ public class ContactoImplementacionDAO implements ContactoDAO {
     }
 }
 
-    public void eliminarEstudiante(ContactoModelo estudiante) {
-        Iterator<ContactoModelo> iterator = estudiantes.iterator();
-        while (iterator.hasNext()) {
-            ContactoModelo actual = iterator.next();
-            if (actual.equals(estudiante)) {
-                iterator.remove();
-                break; // Terminamos el bucle ya que encontramos y eliminamos el estudiante
-            }
+   
+public void eliminarContacto(ContactoModelo contacto) {
+    Iterator<ContactoModelo> iterator = estudiantes.iterator();
+    while (iterator.hasNext()) {
+        ContactoModelo actual = iterator.next();
+        if (actual.equals(contacto)) {
+            iterator.remove();
+            eliminarDeListaEspecifica(contacto, contacto.getTipoContacto());
+            break;
         }
     }
+}
+ 
+ 
+private void eliminarDeListaEspecifica(ContactoModelo contacto, String tipoContacto) {
+    List<ContactoModelo> listaEspecifica = contactosPorTipo.get(tipoContacto);
+    if (listaEspecifica != null) {
+        listaEspecifica.remove(contacto);
+    }
+}
 
     @Override
     public List<ContactoModelo> obtenerTodosEstudiantes() {
@@ -85,18 +95,17 @@ public class ContactoImplementacionDAO implements ContactoDAO {
         return todosEstudiantes;
     }
 
-    @Override
-    public void eliminarEstudiante(String numeroIdentificacion) {
+    
+    public void eliminarContacto(String numeroIdentificacion) {
         for (List<ContactoModelo> estudiantes : contactosPorTipo.values()) {
             estudiantes.removeIf(estudiante -> estudiante.getNumeroIdentificacion().equals(numeroIdentificacion));
         }
     }
 
-    @Override
-    public List<ContactoModelo> obtenerEstudiantesPorTipo(String tipoContacto) {
-        return new ArrayList<>(contactosPorTipo.getOrDefault(tipoContacto, new ArrayList<>()));
-    }
-
+public List<ContactoModelo> obtenerContactosPorTipo(String tipoContacto) {
+    List<ContactoModelo> contactosPorTipoLista = contactosPorTipo.getOrDefault(tipoContacto, new ArrayList<>());
+    return new ArrayList<>(contactosPorTipoLista);
+}
     // Nuevo método para obtener los tipos de contacto disponibles
    @Override
    public List<String> obtenerTiposDeContacto() {
@@ -115,4 +124,5 @@ public class ContactoImplementacionDAO implements ContactoDAO {
     // Convertir el conjunto a una lista y devolverla
     return new ArrayList<>(tiposDeContactoSet);
 }
+
 }

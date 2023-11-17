@@ -81,7 +81,7 @@ public class InterfazEditar extends JFrame {
         estudiante.setTipoContacto(cmbTipoContacto.getSelectedItem().toString());
 
         // Actualizar el estudiante en la lista
-        estudianteDAO.actualizarEstudiante(estudiante);
+        estudianteDAO.actualizarContacto(estudiante);
 
         // Cerrar la ventana de edición
         dispose();
