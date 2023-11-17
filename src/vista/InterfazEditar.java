@@ -6,22 +6,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import modelo.ContactoModelo;
 import colecciones.ContactoDAO;
+import javax.swing.table.DefaultTableModel;
 
 public class InterfazEditar extends JFrame {
     private ContactoDAO estudianteDAO;
     private ContactoModelo estudiante;
     private ListaContactos listaContactos;
+    private DefaultTableModel modeloTabla;
     private JTextField txtIdentificacion;
     private JTextField txtNombres;
     private JTextField txtApellidos;
     private JTextField txtFechaNacimiento;
     private JComboBox<String> cmbTipoContacto;
 
-    public InterfazEditar(ListaContactos listaContactos, ContactoDAO estudianteDAO, ContactoModelo estudiante) {
+    public InterfazEditar(ListaContactos listaContactos, ContactoDAO estudianteDAO, ContactoModelo estudiante,DefaultTableModel modeloTabla) {
         super("Editar Contacto");
         this.estudianteDAO = estudianteDAO;
         this.estudiante = estudiante;
         this.listaContactos = listaContactos;
+         this.modeloTabla = modeloTabla;
 
         setTitle("Editar Contacto");
         setSize(600, 300);

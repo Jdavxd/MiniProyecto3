@@ -23,7 +23,7 @@ public class ListaContactos extends JFrame {
         this.ContactoDAO = estudianteDAO;
 
         setTitle("Lista de Contactos");
-        setSize(600, 300);
+        setSize(900, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Crear el modelo de la tabla con columnas
@@ -32,7 +32,7 @@ public class ListaContactos extends JFrame {
         modeloTabla.addColumn("Nombres");
         modeloTabla.addColumn("Apellidos");
         modeloTabla.addColumn("Fecha de Nacimiento");
-        modeloTabla.addColumn("TIPO");
+        modeloTabla.addColumn("Tipo de contacto");
 
 
         // Crear la tabla con el modelo
@@ -63,10 +63,12 @@ public class ListaContactos extends JFrame {
         JButton btnEliminar = new JButton("Eliminar");
         JButton btnCargarEstudiantes = new JButton("Cargar Estudiantes");
         JButton btnCargarEmpleados = new JButton("Cargar Empleados");
+        JButton btnCargarProfesores = new JButton("Cargar Profesores");
         //btnActualizar.addActionListener(e -> actualizarTabla());
 
         btnCargarEstudiantes.addActionListener(e -> cargarEstudiantes());
         btnCargarEmpleados.addActionListener(e -> cargarEmpleados());
+        btnCargarProfesores.addActionListener(e -> cargarProfesores());
         
         // Configurar el manejador de eventos para el botón Actualizar
         btnActualizar.addActionListener(new ActionListener() {
@@ -98,6 +100,7 @@ public class ListaContactos extends JFrame {
         panelBoton.add(btnEliminar);
         panelBoton.add(btnCargarEstudiantes);
         panelBoton.add(btnCargarEmpleados);
+        panelBoton.add(btnCargarProfesores);
 
 
         // Agregar el panel con el botón al contenedor
@@ -139,6 +142,17 @@ public class ListaContactos extends JFrame {
             agregarFilaTabla(empleado);
         }
     }
+       
+       private void cargarProfesores() {
+    modeloTabla.setRowCount(0);  // Limpiar la tabla antes de agregar las filas actualizadas
+    List<ContactoModelo> profesores = ContactoDAO.obtenerContactosPorTipo("Profesor");
+    for (ContactoModelo profesor : profesores) {
+        agregarFilaTabla(profesor);
+    }
+}
+       
+       
+       
 
        
 private void eliminarContacto() {
@@ -191,25 +205,18 @@ public void actualizarTablaDesdeOtraClase() {
 
 
 private void abrirVentanaEdicion() {
-    // Obtener la fila seleccionada
     int filaSeleccionada = tablaContactos.getSelectedRow();
 
-    // Verificar si se seleccionó una fila
     if (filaSeleccionada >= 0) {
-        // Obtener la información de la fila seleccionada
         String numeroIdentificacion = (String) modeloTabla.getValueAt(filaSeleccionada, 0);
         String nombres = (String) modeloTabla.getValueAt(filaSeleccionada, 1);
         String apellidos = (String) modeloTabla.getValueAt(filaSeleccionada, 2);
         String fechaNacimiento = (String) modeloTabla.getValueAt(filaSeleccionada, 3);
-
-        // Corregir el índice para obtener el tipo de contacto desde la columna 4
         String tipoContacto = (String) modeloTabla.getValueAt(filaSeleccionada, 4);
 
-        // Crear un objeto ContactoModelo con la información
-        ContactoModelo estudianteSeleccionado = new ContactoModelo(numeroIdentificacion, nombres, apellidos, fechaNacimiento, tipoContacto);
+        ContactoModelo contactoSeleccionado = new ContactoModelo(numeroIdentificacion, nombres, apellidos, fechaNacimiento, tipoContacto);
 
-        // Abrir la ventana de edición y pasarle el estudiante seleccionado
-       InterfazEditar ventanaEdicion = new InterfazEditar(ListaContactos.this, ContactoDAO, estudianteSeleccionado);
+        InterfazEditar ventanaEdicion = new InterfazEditar(ListaContactos.this, ContactoDAO, contactoSeleccionado, modeloTabla);
         ventanaEdicion.setVisible(true);
     } else {
         JOptionPane.showMessageDialog(ListaContactos.this, "Seleccione un contacto para actualizar", "Advertencia", JOptionPane.WARNING_MESSAGE);
