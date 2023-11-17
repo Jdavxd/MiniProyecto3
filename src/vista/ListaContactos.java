@@ -82,8 +82,7 @@ public class ListaContactos extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
-                eliminarEstudiante();
-                actualizarTablaDesdeOtraClase();
+                eliminarContacto();
             }
         });
          
@@ -142,23 +141,33 @@ public class ListaContactos extends JFrame {
     }
 
        
-private void eliminarEstudiante() {
-    // Obtener el índice seleccionado en la tabla
+private void eliminarContacto() {
     int filaSeleccionada = tablaContactos.getSelectedRow();
 
     if (filaSeleccionada != -1) {
-        // Obtener el número de identificación del estudiante seleccionado
         String numeroIdentificacion = (String) modeloTabla.getValueAt(filaSeleccionada, 0);
+        String tipoContacto = (String) modeloTabla.getValueAt(filaSeleccionada, 4);
 
-        // Eliminar el estudiante utilizando el método en el DAO
         ContactoDAO.eliminarContacto(numeroIdentificacion);
 
-        // Actualizar la tabla
-        actualizarTablaDesdeOtraClase();
+        // Actualizar la tabla solo para el tipo de contacto específico
+        actualizarTablaPorTipo(tipoContacto);
 
         JOptionPane.showMessageDialog(this, "Contacto eliminado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     } else {
         JOptionPane.showMessageDialog(this, "Selecciona un Contacto para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+private void actualizarTablaPorTipo(String tipoContacto) {
+    List<ContactoModelo> contactosPorTipoLista = ContactoDAO.obtenerContactosPorTipo(tipoContacto);
+
+    // Limpiar la tabla antes de agregar las filas actualizadas
+    modeloTabla.setRowCount(0);
+
+    // Agregar las filas actualizadas solo para el tipo de contacto específico
+    for (ContactoModelo contacto : contactosPorTipoLista) {
+        agregarFilaTabla(contacto);
     }
 }
        

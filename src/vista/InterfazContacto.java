@@ -30,7 +30,7 @@ public class InterfazContacto extends JFrame {
     public InterfazContacto(ContactoDAO estudianteDAO) {
         this.estudianteDAO = estudianteDAO;
 
-        setTitle("Agregar Estudiante");
+        setTitle("Agregar Contacto");
         setSize(600, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
