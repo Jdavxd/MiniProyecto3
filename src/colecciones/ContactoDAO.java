@@ -22,4 +22,5 @@ public interface ContactoDAO {
     List<ContactoModelo> obtenerContactosPorTipo(String tipoContacto);
     // Nuevo método para obtener los tipos de contacto disponibles
     List<String> obtenerTiposDeContacto();
+    
 }

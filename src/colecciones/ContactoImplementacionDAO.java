@@ -40,12 +40,10 @@ public class ContactoImplementacionDAO implements ContactoDAO {
         contactosPorTipo.computeIfAbsent(tipoContacto, k -> new ArrayList<>()).add(contacto);
     }
 
-    @Override
     public List<ContactoModelo> obtenerTodosProfesores() {
         return new ArrayList<>(profesores);
     }
 
-    @Override
     public List<ContactoModelo> obtenerTodosEmpleados() {
         return new ArrayList<>(empleados);
     }
@@ -76,7 +74,6 @@ public void actualizarContacto(ContactoModelo contacto) {
 }
 
    
-    @Override
     public void eliminarContacto(ContactoModelo contacto) {
     Iterator<ContactoModelo> iterator = estudiantes.iterator();
     while (iterator.hasNext()) {
@@ -97,7 +94,6 @@ private void eliminarDeListaEspecifica(ContactoModelo contacto, String tipoConta
     }
 }
 
-    @Override
     public List<ContactoModelo> obtenerTodosEstudiantes() {
         List<ContactoModelo> todosEstudiantes = new ArrayList<>();
         for (List<ContactoModelo> estudiantes : contactosPorTipo.values()) {
@@ -120,7 +116,6 @@ private void eliminarDeListaEspecifica(ContactoModelo contacto, String tipoConta
     return new ArrayList<>(contactosPorTipoLista);
 }
     // Nuevo método para obtener los tipos de contacto disponibles
-   @Override
    public List<String> obtenerTiposDeContacto() {
     // Crear un conjunto para almacenar los tipos de contacto únicos
     Set<String> tiposDeContactoSet = new HashSet<>();
