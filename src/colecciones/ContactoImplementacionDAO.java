@@ -40,10 +40,12 @@ public class ContactoImplementacionDAO implements ContactoDAO {
         contactosPorTipo.computeIfAbsent(tipoContacto, k -> new ArrayList<>()).add(contacto);
     }
 
+    @Override
     public List<ContactoModelo> obtenerTodosProfesores() {
         return new ArrayList<>(profesores);
     }
 
+    @Override
     public List<ContactoModelo> obtenerTodosEmpleados() {
         return new ArrayList<>(empleados);
     }
