@@ -5,8 +5,8 @@
 package vista;
 import controlador.ContactoController;
 /**
- *
- * @author julia
+ * @author Julian Rengifo
+ * @author Genaro Vegas 2241850
  */
 import javax.swing.*;
 import java.awt.event.ActionEvent;
