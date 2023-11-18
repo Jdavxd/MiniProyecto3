@@ -78,15 +78,16 @@ public class InterfazEditar extends JFrame {
     }
 
  private void guardarCambios() {
+        String nuevoTipoContacto = cmbTipoContacto.getSelectedItem().toString();
         // Actualizar el objeto ContactoModelo con la nueva información
         estudiante.setNumeroIdentificacion(txtIdentificacion.getText());
         estudiante.setNombres(txtNombres.getText());
         estudiante.setApellidos(txtApellidos.getText());
         estudiante.setFechaNacimiento(txtFechaNacimiento.getText());
-        estudiante.setTipoContacto(cmbTipoContacto.getSelectedItem().toString());
-
+        estudiante.setTipoContacto(nuevoTipoContacto);
         // Actualizar el estudiante en la lista
-        estudianteDAO.actualizarContacto(estudiante);
+        estudianteDAO.actualizarContacto(estudiante, nuevoTipoContacto);
+        //listaContactos.actualizarTablaPorTipo(nuevoTipoContacto);
 
         // Cerrar la ventana de edición
         dispose();

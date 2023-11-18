@@ -19,12 +19,12 @@ import colecciones.ContactoDAO;
 
 public class ContactoController {
     private InterfazContacto vista;
-    private ContactoDAO estudianteDAO;
+    private ContactoDAO ContactoDAO;
      private ListaContactos listaContactos;
 
-    public ContactoController(InterfazContacto vista, ContactoDAO estudianteDAO, ListaContactos listaContactos ) {
+    public ContactoController(InterfazContacto vista, ContactoDAO ContactoDAO, ListaContactos listaContactos ) {
         this.vista = vista;
-        this.estudianteDAO = estudianteDAO;
+        this.ContactoDAO = ContactoDAO;
         this.listaContactos = listaContactos;
 
         // Configurar el manejador de eventos para el botón Agregar
@@ -36,30 +36,30 @@ public class ContactoController {
     this.listaContactos = listaContactos;
 }
 
-  public void agregarEstudiante() {
+  public void agregarContacto() {
     // Obtener información de la vista
     String identificacion = vista.getIdentificacion();
     String nombres = vista.getNombres();
     String apellidos = vista.getApellidos();
     String fechaNacimiento = vista.getFechaNacimiento();
-     String tipoContacto = vista.getTipoContacto();
+    String tipoContacto = vista.getTipoContacto();
 
 
     // Crear una instancia de ContactoModelo con la información
-   ContactoModelo nuevoEstudiante = new ContactoModelo(identificacion, nombres, apellidos, fechaNacimiento,tipoContacto);
-    nuevoEstudiante.setNumeroIdentificacion(identificacion);
-    nuevoEstudiante.setNombres(nombres);
-    nuevoEstudiante.setApellidos(apellidos);
-    nuevoEstudiante.setFechaNacimiento(fechaNacimiento);
-    nuevoEstudiante.setTipoContacto(tipoContacto);
+   ContactoModelo nuevoContacto = new ContactoModelo(identificacion, nombres, apellidos, fechaNacimiento,tipoContacto);
+    nuevoContacto.setNumeroIdentificacion(identificacion);
+    nuevoContacto.setNombres(nombres);
+    nuevoContacto.setApellidos(apellidos);
+    nuevoContacto.setFechaNacimiento(fechaNacimiento);
+    nuevoContacto.setTipoContacto(tipoContacto);
 
     // Agregar el estudiante utilizando el DAO
-    estudianteDAO.agregarEstudiante(nuevoEstudiante);
+    ContactoDAO.agregarContacto(nuevoContacto);
     
     // Limpiar los campos de la vista
     vista.limpiarCampos();
     
-  List<ContactoModelo> listaEstudiantes = estudianteDAO.obtenerTodosEstudiantes();
+  List<ContactoModelo> listaEstudiantes = ContactoDAO.obtenerTodosEstudiantes();
 System.out.println("Lista de estudiantes después de agregar:");
 for (ContactoModelo estudiante : listaEstudiantes) {
     // Imprimir la información del estudiante y su tipo de contacto
@@ -78,7 +78,7 @@ for (ContactoModelo estudiante : listaEstudiantes) {
         listaContactos.setVisible(false);
     }
       SwingUtilities.invokeLater(() -> {
-        listaContactos = new ListaContactos(estudianteDAO);
+        listaContactos = new ListaContactos(ContactoDAO);
         setListaContactos(listaContactos);
         listaContactos.actualizarTabla();
     });
