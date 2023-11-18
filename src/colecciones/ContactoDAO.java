@@ -13,7 +13,7 @@
 
     public interface ContactoDAO {
         void agregarContacto(ContactoModelo contacto);
-        void actualizarContacto(ContactoModelo contacto);
+        void actualizarContacto(ContactoModelo contacto, String nuevoTipoContacto);
         void eliminarContacto(String numeroIdentificacion);
         List<ContactoModelo> obtenerTodosProfesores();
         List<ContactoModelo> obtenerTodosEmpleados();

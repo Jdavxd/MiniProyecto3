@@ -42,7 +42,7 @@ public class ContactoController {
     String nombres = vista.getNombres();
     String apellidos = vista.getApellidos();
     String fechaNacimiento = vista.getFechaNacimiento();
-     String tipoContacto = vista.getTipoContacto();
+    String tipoContacto = vista.getTipoContacto();
 
 
     // Crear una instancia de ContactoModelo con la información

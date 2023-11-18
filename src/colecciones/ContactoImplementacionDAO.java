@@ -49,50 +49,64 @@ public class ContactoImplementacionDAO implements ContactoDAO {
     }
 
    
-    @Override
-public void actualizarContacto(ContactoModelo contacto) {
-    String tipoContacto = contacto.getTipoContacto();
-    List<ContactoModelo> listaEspecifica = contactosPorTipo.get(tipoContacto);
 
-    if (listaEspecifica != null) {
-        int index = -1;
+@Override
+public void actualizarContacto(ContactoModelo contacto, String nuevoTipoContacto) {
+    // Obtener el tipo de contacto anterior y la identificación del contacto
+    String tipoContactoAnterior = contacto.getTipoContacto();
+    String idContacto = contacto.getNumeroIdentificacion();
 
-        // Buscar el índice del contacto en la lista específica
-        for (int i = 0; i < listaEspecifica.size(); i++) {
-            ContactoModelo e = listaEspecifica.get(i);
-            if (e.getNumeroIdentificacion().equals(contacto.getNumeroIdentificacion())) {
-                index = i;
+    // Obtener la lista anterior y buscar el contacto
+    List<ContactoModelo> listaEspecificaAnterior = contactosPorTipo.get(tipoContactoAnterior);
+    if (listaEspecificaAnterior != null) {
+        Iterator<ContactoModelo> iterator = listaEspecificaAnterior.iterator();
+        while (iterator.hasNext()) {
+            ContactoModelo c = iterator.next();
+            if (c.getNumeroIdentificacion().equals(idContacto)) {
+                // Encontramos el contacto, eliminamos el antiguo y salimos del bucle
+                iterator.remove();
                 break;
             }
         }
 
-        if (index != -1) {
-            // Actualizar el contacto en la lista específica
-            listaEspecifica.set(index, contacto);
+        // Si la lista anterior queda vacía, también elimínala
+        if (listaEspecificaAnterior.isEmpty()) {
+            contactosPorTipo.remove(tipoContactoAnterior);
         }
+    }
+
+    // Actualizar el tipo de contacto en el objeto
+    contacto.setTipoContacto(nuevoTipoContacto);
+
+    // Iterar sobre todas las listas y eliminar el contacto si está presente
+    for (List<ContactoModelo> lista : contactosPorTipo.values()) {
+        lista.removeIf(c -> c.getNumeroIdentificacion().equals(idContacto));
+    }
+
+    // Obtener o crear la lista específica para el nuevo tipo de contacto
+    List<ContactoModelo> listaEspecificaNueva = contactosPorTipo.computeIfAbsent(nuevoTipoContacto, k -> new ArrayList<>());
+
+    // Verificar si el contacto ya existe en la lista nueva
+    boolean contactoExistente = listaEspecificaNueva.stream()
+            .anyMatch(c -> c.getNumeroIdentificacion().equals(idContacto));
+
+    // Agregar el contacto a la lista nueva solo si no existe ya
+    if (!contactoExistente) {
+        listaEspecificaNueva.add(contacto);
     }
 }
 
+
    
-    public void eliminarContacto(ContactoModelo contacto) {
-    Iterator<ContactoModelo> iterator = estudiantes.iterator();
-    while (iterator.hasNext()) {
-        ContactoModelo actual = iterator.next();
-        if (actual.equals(contacto)) {
-            iterator.remove();
-            eliminarDeListaEspecifica(contacto, contacto.getTipoContacto());
-            break;
-        }
+public void eliminarContacto(ContactoModelo contacto) {
+    // Iterar sobre todas las listas y eliminar el contacto si está presente
+    for (List<ContactoModelo> lista : contactosPorTipo.values()) {
+        lista.remove(contacto);
     }
 }
  
  
-private void eliminarDeListaEspecifica(ContactoModelo contacto, String tipoContacto) {
-    List<ContactoModelo> listaEspecifica = contactosPorTipo.get(tipoContacto);
-    if (listaEspecifica != null) {
-        listaEspecifica.remove(contacto);
-    }
-}
+
 
     public List<ContactoModelo> obtenerTodosEstudiantes() {
         List<ContactoModelo> todosEstudiantes = new ArrayList<>();
@@ -125,5 +139,7 @@ private void eliminarDeListaEspecifica(ContactoModelo contacto, String tipoConta
         tiposDeContacto.add("Empleado");
         return tiposDeContacto;
     }
+
+ 
 
 }
