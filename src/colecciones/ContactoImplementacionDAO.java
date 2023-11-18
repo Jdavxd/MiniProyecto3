@@ -18,7 +18,7 @@ public class ContactoImplementacionDAO implements ContactoDAO {
     private Map<String, List<ContactoModelo>> contactosPorTipo = new HashMap<>();;
 
     @Override
-    public void agregarEstudiante(ContactoModelo contacto) {
+    public void agregarContacto(ContactoModelo contacto) {
         estudiantes.add(contacto);
 
         // Verificar el tipo de contacto y agregar a la lista correspondiente

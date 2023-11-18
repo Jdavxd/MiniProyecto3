@@ -67,7 +67,7 @@ public class InterfazContacto extends JFrame {
         btnAgregar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controlador.agregarEstudiante();
+                controlador.agregarContacto();
             }
         });
         setLocationRelativeTo(null);

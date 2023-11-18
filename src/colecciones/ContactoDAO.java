@@ -12,7 +12,7 @@ import modelo.ContactoModelo;
 import java.util.List;
 
 public interface ContactoDAO {
-    void agregarEstudiante(ContactoModelo estudiante);
+    void agregarContacto(ContactoModelo contacto);
     List<ContactoModelo> obtenerTodosProfesores();
     List<ContactoModelo> obtenerTodosEmpleados();
     List<ContactoModelo> obtenerTodosEstudiantes();
