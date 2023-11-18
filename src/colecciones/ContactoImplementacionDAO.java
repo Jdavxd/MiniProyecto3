@@ -116,21 +116,14 @@ private void eliminarDeListaEspecifica(ContactoModelo contacto, String tipoConta
     return new ArrayList<>(contactosPorTipoLista);
 }
     // Nuevo método para obtener los tipos de contacto disponibles
-   public List<String> obtenerTiposDeContacto() {
-    // Crear un conjunto para almacenar los tipos de contacto únicos
-    Set<String> tiposDeContactoSet = new HashSet<>();
-
-    // Iterar sobre todas las listas de contactos
-    for (List<ContactoModelo> estudiantesPorTipo : contactosPorTipo.values()) {
-        // Iterar sobre los contactos en cada lista
-        for (ContactoModelo estudiante : estudiantesPorTipo) {
-            // Agregar el tipo de contacto al conjunto
-            tiposDeContactoSet.add(estudiante.getTipoContacto());
-        }
+    @Override
+    public List<String> obtenerTiposDeContacto() {
+        // Implementación para obtener tipos de contacto disponibles
+        List<String> tiposDeContacto = new ArrayList<>();
+        tiposDeContacto.add("Estudiante");
+        tiposDeContacto.add("Profesor");
+        tiposDeContacto.add("Empleado");
+        return tiposDeContacto;
     }
-
-    // Convertir el conjunto a una lista y devolverla
-    return new ArrayList<>(tiposDeContactoSet);
-}
 
 }
