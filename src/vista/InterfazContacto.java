@@ -11,9 +11,13 @@ import controlador.ContactoController;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import controlador.ContactoController;
 import colecciones.ContactoDAO;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 public class InterfazContacto extends JFrame {
     private ContactoDAO estudianteDAO;
@@ -31,22 +35,87 @@ public class InterfazContacto extends JFrame {
         this.estudianteDAO = estudianteDAO;
 
         setTitle("Agregar Contacto");
-        setSize(600, 500);
+        setSize(600, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        txtIdentificacion = new JTextField(10);
-        txtNombres = new JTextField(10);
-        txtApellidos = new JTextField(10);
-        txtFechaNacimiento = new JTextField(10);
+        
+        // Crear un panel para alinear los componentes en el centro
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(5, 5, 5, 5); // Márgenes entre los componentes
+    
+        // Componentes
+        txtIdentificacion = new JTextField();
+        txtNombres = new JTextField();
+        txtApellidos = new JTextField();
+        txtFechaNacimiento = new JTextField();
         btnAgregar = new JButton("Agregar");
+    
+        cmbTipoContacto = new JComboBox<>();
+        cmbTipoContacto.addItem("Estudiante");
+        cmbTipoContacto.addItem("Profesor");
+        cmbTipoContacto.addItem("Empleado");
+    
+        // Establecer tamaños preferidos para los JTextField y JComboBox
+        txtIdentificacion.setPreferredSize(new Dimension(400, 30));
+        txtNombres.setPreferredSize(new Dimension(400, 30));
+        txtApellidos.setPreferredSize(new Dimension(400, 30));
+        txtFechaNacimiento.setPreferredSize(new Dimension(400, 30));
+        cmbTipoContacto.setPreferredSize(new Dimension(150, 30));
+    
+        // Añadir componentes al panel
+        panel.add(new JLabel("Identificación:"), gbc);
+        gbc.gridy++;
+        panel.add(txtIdentificacion, gbc);
+        gbc.gridy++;
+        panel.add(new JLabel("Nombres:"), gbc);
+        gbc.gridy++;
+        panel.add(txtNombres, gbc);
+        gbc.gridy++;
+        panel.add(new JLabel("Apellidos:"), gbc);
+        gbc.gridy++;
+        panel.add(txtApellidos, gbc);
+        gbc.gridy++;
+        panel.add(new JLabel("Fecha de Nacimiento:"), gbc);
+        gbc.gridy++;
+        panel.add(txtFechaNacimiento, gbc);
+        gbc.gridy++;
+        panel.add(new JLabel("Tipo de Contacto:"), gbc);
+        gbc.gridy++;
+        panel.add(cmbTipoContacto, gbc);
+        gbc.gridy++;
+        gbc.anchor = GridBagConstraints.CENTER; // Para centrar el botón
+        panel.add(btnAgregar, gbc);
+
+    
+        // Agregar el panel al centro del JFrame
+        add(panel, BorderLayout.CENTER);
+
+        /*
+        txtIdentificacion = new JTextField();
+        txtIdentificacion.setMaximumSize(new Dimension(500, 20));
+        txtNombres = new JTextField();
+        txtNombres.setMaximumSize(new Dimension(500,20));
+        txtApellidos = new JTextField();
+        txtApellidos.setMaximumSize(new Dimension(500, 20));
+        txtFechaNacimiento = new JTextField();
+        txtFechaNacimiento.setMaximumSize(new Dimension(500, 20));
+        btnAgregar = new JButton("Agregar");
+        
+        
 
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        
+        
         
          // Inicializar el JComboBox y agregar tipos de contacto
         cmbTipoContacto = new JComboBox<>();
         cmbTipoContacto.addItem("Estudiante");
         cmbTipoContacto.addItem("Profesor");
         cmbTipoContacto.addItem("Empleado");
+        
+        cmbTipoContacto.setMaximumSize(new Dimension(500, 20));
 
         add(new JLabel("Identificación:"));
         add(txtIdentificacion);
@@ -59,6 +128,7 @@ public class InterfazContacto extends JFrame {
         add(new JLabel("Tipo de Contacto:"));
         add(cmbTipoContacto);
         add(btnAgregar);
+        */
 
         // Asignar el controlador
         ContactoController controlador = new ContactoController(this, estudianteDAO, listaContactos);
