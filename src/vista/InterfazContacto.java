@@ -4,6 +4,7 @@
  */
 package vista;
 import controlador.ContactoController;
+import colecciones.ContactoDAO;
 /**
  * @author Julian Rengifo
  * @author Genaro Vegas 2241850
@@ -18,6 +19,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.List;
+import modelo.ContactoModelo;
 
 public class InterfazContacto extends JFrame {
     private ContactoDAO estudianteDAO;

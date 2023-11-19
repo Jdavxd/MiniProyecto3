@@ -13,6 +13,8 @@ import javax.swing.table.DefaultTableModel;
 import java.util.List;
 import modelo.ContactoModelo;
 import colecciones.ContactoDAO;
+import java.awt.Color;
+import java.awt.Image;
 
 public class ListaContactos extends JFrame {
     private ContactoDAO ContactoDAO;
@@ -23,7 +25,7 @@ public class ListaContactos extends JFrame {
         this.ContactoDAO = estudianteDAO;
 
         setTitle("Lista de Contactos");
-        setSize(900, 300);
+        setSize(900, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Crear el modelo de la tabla con columnas
@@ -59,11 +61,34 @@ public class ListaContactos extends JFrame {
         // Crear el botón "Actualizar"
         JButton btnActualizar = new JButton("Actualizar");
         // Configurar el manejador de eventos para el botón Actualizar
+        ImageIcon IconBotActualizar = new ImageIcon("src/imagenes/Edit1-2.png");
+        btnActualizar.setIcon(IconBotActualizar);
         
         JButton btnEliminar = new JButton("Eliminar");
+        
+        ImageIcon IconBotEliminar = new ImageIcon("src/imagenes/BtnElim1-2.png");
+        btnEliminar.setIcon(IconBotEliminar);
+        /*Image img = IconBotEliminar.getImage();
+
+        // Redimensionar el icono al tamaño del botón
+        var newImg = img.getScaledInstance(btnEliminar.getWidth(), btnEliminar.getHeight(), java.awt.Image.SCALE_SMOOTH);
+
+        // Establecer el icono redimensionado en el botón
+        IconBotEliminar = new ImageIcon(newImg);
+        btnEliminar.setIcon(IconBotEliminar);
+        */
+        
         JButton btnCargarEstudiantes = new JButton("Cargar Estudiantes");
+        btnCargarEstudiantes.setBackground(Color.BLACK);
+        btnCargarEstudiantes.setForeground(Color.WHITE);
+
         JButton btnCargarEmpleados = new JButton("Cargar Empleados");
+        btnCargarEmpleados.setBackground(Color.BLACK);
+        btnCargarEmpleados.setForeground(Color.WHITE);
+
         JButton btnCargarProfesores = new JButton("Cargar Profesores");
+        btnCargarProfesores.setBackground(Color.BLACK);
+        btnCargarProfesores.setForeground(Color.WHITE);
         //btnActualizar.addActionListener(e -> actualizarTabla());
 
         btnCargarEstudiantes.addActionListener(e -> cargarEstudiantes());
@@ -95,16 +120,23 @@ public class ListaContactos extends JFrame {
        add(new JScrollPane(tablaContactos), BorderLayout.CENTER);
 
         // Crear un panel para agregar el botón y configurar el layout
-        JPanel panelBoton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        panelBoton.add(btnActualizar);        
-        panelBoton.add(btnEliminar);
+        JPanel panelBoton = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelBoton.add(btnCargarEstudiantes);
         panelBoton.add(btnCargarEmpleados);
         panelBoton.add(btnCargarProfesores);
 
 
         // Agregar el panel con el botón al contenedor
-        add(panelBoton, BorderLayout.SOUTH);
+        add(panelBoton, BorderLayout.NORTH);
+        
+       
+        // Crear un panel para agregar el botón y configurar el layout
+        JPanel panelBoton2 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        panelBoton2.add(btnActualizar);        
+        panelBoton2.add(btnEliminar);
+
+        // Agregar el panel con el botón al contenedor
+        add(panelBoton2, BorderLayout.SOUTH);
 
         // Hacer visible la interfaz
         setVisible(true);
