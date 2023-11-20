@@ -10,11 +10,13 @@
      * @author julia
      */
     import java.util.List;
+import modelo.Telefono;
 
     public interface ContactoDAO {
         void agregarContacto(ContactoModelo contacto);
-        void actualizarContacto(ContactoModelo contacto, String nuevoTipoContacto);
+        void actualizarContacto(ContactoModelo contacto, String nuevoTipoContacto, String idVieja);
         void eliminarContacto(String numeroIdentificacion);
+        void agregarTelefono(String numeroIdentificacion, Telefono telefono);
         List<ContactoModelo> obtenerTodosProfesores();
         List<ContactoModelo> obtenerTodosEmpleados();
         List<ContactoModelo> obtenerTodosEstudiantes();

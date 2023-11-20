@@ -28,6 +28,7 @@ public class ContactoModelo {
         this.apellidos = apellidos;
         this.fechaNacimiento = fechaNacimiento;
         this.tipoContacto = tipoContacto;
+        this.telefonos = new ArrayList<>();
     }
 
     public String getNumeroIdentificacion() {
@@ -73,6 +74,8 @@ public class ContactoModelo {
     public List<Telefono> getTelefonos() {
         return telefonos;
     }
+    
+ 
 
     public void agregarTelefono(Telefono telefono) {
         this.telefonos.add(telefono);
@@ -85,6 +88,8 @@ public class ContactoModelo {
     public void setTipoContacto(String tipoContacto) {
        this.tipoContacto = tipoContacto;
     }
+    
+    
 
     
     @Override
@@ -93,8 +98,10 @@ public class ContactoModelo {
                 numeroIdentificacion + '\'' +
                  nombres + '\'' +
                  apellidos + '\'' +
-                 fechaNacimiento + '\'';
+                 fechaNacimiento + '\''+
+                 telefonos;
     }
+
 
 
 } 

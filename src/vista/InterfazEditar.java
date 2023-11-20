@@ -57,6 +57,8 @@ public class InterfazEditar extends JFrame {
         txtApellidos.setText(estudiante.getApellidos());
         txtFechaNacimiento.setText(estudiante.getFechaNacimiento());
         cmbTipoContacto.setSelectedItem(estudiante.getTipoContacto());
+        
+        estudiante.setNumeroIdentificacion("0");
 
         // Crear un panel para el botón y configurar el diseño
         JPanel panelBoton = new JPanel();
@@ -78,6 +80,7 @@ public class InterfazEditar extends JFrame {
     }
 
  private void guardarCambios() {
+        String idVieja = estudiante.getNumeroIdentificacion();
         String nuevoTipoContacto = cmbTipoContacto.getSelectedItem().toString();
         // Actualizar el objeto ContactoModelo con la nueva información
         estudiante.setNumeroIdentificacion(txtIdentificacion.getText());
@@ -86,7 +89,7 @@ public class InterfazEditar extends JFrame {
         estudiante.setFechaNacimiento(txtFechaNacimiento.getText());
         estudiante.setTipoContacto(nuevoTipoContacto);
         // Actualizar el estudiante en la lista
-        estudianteDAO.actualizarContacto(estudiante, nuevoTipoContacto);
+        estudianteDAO.actualizarContacto(estudiante, nuevoTipoContacto,idVieja);
         //listaContactos.actualizarTablaPorTipo(nuevoTipoContacto);
 
         // Cerrar la ventana de edición

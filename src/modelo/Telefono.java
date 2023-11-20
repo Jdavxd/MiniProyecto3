@@ -33,8 +33,12 @@ public class Telefono {
         this.tipo = tipo;
     }
 
-    @Override
-    public String toString() {
+   @Override
+public String toString() {
+    if (numero != null && !numero.isEmpty()) {
         return "Tipo: " + tipo + ", Número: " + numero;
+    } else {
+        return "Tipo: " + tipo + ", Número: (sin especificar)";
     }
+}
 }
