@@ -142,6 +142,7 @@ public void eliminarContacto(ContactoModelo contacto) {
         return tiposDeContacto;
     }
 
+    
  
 
 }

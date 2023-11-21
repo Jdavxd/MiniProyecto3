@@ -89,12 +89,16 @@ public class ListaContactos extends JFrame {
         JButton btnCargarProfesores = new JButton("Cargar Profesores");
         btnCargarProfesores.setBackground(Color.BLACK);
         btnCargarProfesores.setForeground(Color.WHITE);
+        
+        JButton btnCargarTodos = new JButton("Cargar Todos");
+        btnCargarTodos.setBackground(Color.BLACK);
+        btnCargarTodos.setForeground(Color.WHITE);
         //btnActualizar.addActionListener(e -> actualizarTabla());
 
         btnCargarEstudiantes.addActionListener(e -> cargarEstudiantes());
         btnCargarEmpleados.addActionListener(e -> cargarEmpleados());
         btnCargarProfesores.addActionListener(e -> cargarProfesores());
-        
+        btnCargarTodos.addActionListener(e -> cargarTodosLosContactos());
         // Configurar el manejador de eventos para el botón Actualizar
         btnActualizar.addActionListener(new ActionListener() {
             @Override
@@ -124,7 +128,7 @@ public class ListaContactos extends JFrame {
         panelBoton.add(btnCargarEstudiantes);
         panelBoton.add(btnCargarEmpleados);
         panelBoton.add(btnCargarProfesores);
-
+        panelBoton.add(btnCargarTodos);
 
         // Agregar el panel con el botón al contenedor
         add(panelBoton, BorderLayout.NORTH);
@@ -168,7 +172,7 @@ public class ListaContactos extends JFrame {
            
            
        private void cargarEmpleados() {
-        modeloTabla.setRowCount(0);  // Limpiar la tabla antes de agregar las filas actualizadas
+       modeloTabla.setRowCount(0);  // Limpiar la tabla antes de agregar las filas actualizadas
         List<ContactoModelo> empleados = ContactoDAO.obtenerContactosPorTipo("Empleado");
         for (ContactoModelo empleado : empleados) {
             agregarFilaTabla(empleado);
@@ -176,11 +180,15 @@ public class ListaContactos extends JFrame {
     }
        
        private void cargarProfesores() {
-    modeloTabla.setRowCount(0);  // Limpiar la tabla antes de agregar las filas actualizadas
+    modeloTabla.setRowCount(0);  // Limpiar la tabla antes de agregar las filas actualizadas*/
     List<ContactoModelo> profesores = ContactoDAO.obtenerContactosPorTipo("Profesor");
     for (ContactoModelo profesor : profesores) {
         agregarFilaTabla(profesor);
     }
+}
+ 
+       private void cargarTodosLosContactos() {
+    actualizarTabla();
 }
        
        
