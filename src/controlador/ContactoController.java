@@ -48,24 +48,26 @@ public void agregarContacto() {
     String fechaNacimiento = vista.getFechaNacimiento();
     String tipoContacto = vista.getTipoContacto();
     List<String> direcciones = vista.obtenerDireccionesDesdeVista(); // Obtener direcciones desde la vista
-
+    
     // Crear una instancia de ContactoModelo con la información
     ContactoModelo nuevoContacto = new ContactoModelo(identificacion, nombres, apellidos, fechaNacimiento, direcciones, tipoContacto);
     nuevoContacto.setNumeroIdentificacion(identificacion);
     nuevoContacto.setNombres(nombres);
     nuevoContacto.setApellidos(apellidos);
     nuevoContacto.setFechaNacimiento(fechaNacimiento);
-    nuevoContacto.setTipoContacto(tipoContacto);
+    //nuevoContacto.setDirecciones(direcciones);
+    nuevoContacto.setTipoContacto(tipoContacto);   
+    
 
     // Configurar el contacto actual
     contactoActual = nuevoContacto;
 
     // Agregar el contacto utilizando el DAO
     ContactoDAO.agregarContacto(nuevoContacto);
-
+   // nuevoContacto.setDirecciones (null);
+    vista.limpiarDireccionesTemporales();
     // Limpiar los campos de la vista
     vista.limpiarCampos();
-
     // Mostrar mensaje de éxito en un cuadro de diálogo
     JOptionPane.showMessageDialog(vista, "Contacto agregado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 

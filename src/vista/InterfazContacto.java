@@ -178,27 +178,18 @@ public class InterfazContacto extends JFrame {
         ContactoController controlador = new ContactoController(this, estudianteDAO, listaContactos);
 
         // Configurar el manejador de eventos para el botón Agregar
-        btnAgregar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                controlador.agregarContacto();
-                obtenerDireccionesDesdeVista();
-            }
+        btnAgregar.addActionListener((ActionEvent e) -> {
+            controlador.agregarContacto();
+            obtenerDireccionesDesdeVista();
         });
         setLocationRelativeTo(null);
         
-            btnAgregarDireccion.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            agregarDireccionTemporal();
-        }
-    });
+            btnAgregarDireccion.addActionListener((ActionEvent e) -> {
+                agregarDireccionTemporal();
+        });
             
-              btnAgregarTelefono.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                controlador.agregarTelefono();
-            }
+              btnAgregarTelefono.addActionListener((ActionEvent e) -> {
+                  controlador.agregarTelefono();
         });
               
               
@@ -294,9 +285,12 @@ private void agregarDireccionTemporal() {
         // Muestra un mensaje de error si la dirección está vacía
         JOptionPane.showMessageDialog(this, "La dirección no puede estar vacía", "Error", JOptionPane.ERROR_MESSAGE);
     }
-}
+}   
 
-    
+
+ public void limpiarDireccionesTemporales() {
+        direccionesTemporales.clear();
+    }
     
     public void limpiarCampos() {
         txtIdentificacion.setText("");

@@ -150,25 +150,24 @@ import javax.swing.table.TableCellEditor;
     }
 
         // Método para agregar una fila a la tabla con la información del estudiante
-           private void agregarFilaTabla(ContactoModelo contacto) {
-            // Modificar según el tipo de contacto
-            String tipoContacto = contacto.getTipoContacto();
-            List<String> direcciones = contacto.getDirecciones();
-            String obtenerDireccionesComoLista = direcciones.stream().collect(Collectors.joining(", "));
-            String telefonos = obtenerTelefonos(contacto);
+ private void agregarFilaTabla(ContactoModelo contacto) {
+    // Modificar según el tipo de contacto
+    String tipoContacto = contacto.getTipoContacto();
+    List<String> direcciones = contacto.getDirecciones();
+    String obtenerDireccionesComoLista = direcciones.stream().collect(Collectors.joining(", "));
+    String telefonos = obtenerTelefonos(contacto);
 
-            Object[] fila = {
-                    contacto.getNumeroIdentificacion(),
-                    contacto.getNombres(),
-                    contacto.getApellidos(),
-                    contacto.getFechaNacimiento(),
-                    tipoContacto,
-                    obtenerDireccionesComoLista,
-                    telefonos
-
-            };
-            modeloTabla.addRow(fila);
-        }
+    Object[] fila = {
+            contacto.getNumeroIdentificacion(),
+            contacto.getNombres(),
+            contacto.getApellidos(),
+            contacto.getFechaNacimiento(),
+            tipoContacto,
+            obtenerDireccionesComoLista,
+            telefonos
+    };
+    modeloTabla.addRow(fila);
+}
 
 
         private void cargarEstudiantes() {
@@ -301,6 +300,10 @@ private void abrirVentanaEdicion() {
 
     if (filaSeleccionada >= 0) {
         contactoActual = obtenerContactoModeloDesdeFila(filaSeleccionada);
+         List<String> direccionesActuales = obtenerDireccionesComoLista(filaSeleccionada);
+
+        // Establecer las direcciones existentes en el objeto contactoActual
+        contactoActual.setDirecciones(direccionesActuales);
         String numeroIdentificacion = (String) modeloTabla.getValueAt(filaSeleccionada, 0);
         String nombres = (String) modeloTabla.getValueAt(filaSeleccionada, 1);
         String apellidos = (String) modeloTabla.getValueAt(filaSeleccionada, 2);
@@ -309,7 +312,7 @@ private void abrirVentanaEdicion() {
         String tipoContacto = (String) modeloTabla.getValueAt(filaSeleccionada, 4);
 
         InterfazEditar ventanaEdicion = new InterfazEditar(ListaContactos.this, ContactoDAO, contactoActual, modeloTabla);
-        ventanaEdicion.setVisible(true);
+        ventanaEdicion  .setVisible(true);
     } else {
         JOptionPane.showMessageDialog(ListaContactos.this, "Seleccione un contacto para actualizar", "Advertencia", JOptionPane.WARNING_MESSAGE);
     }

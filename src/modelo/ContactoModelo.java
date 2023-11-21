@@ -70,6 +70,10 @@ public class ContactoModelo {
     public void agregarDireccion(String direccion) {
         this.direcciones.add(direccion);
     }
+    
+      public void setDirecciones(List<String> direcciones) {
+        this.direcciones = direcciones;
+    }
 
     public List<Telefono> getTelefonos() {
         return telefonos;
