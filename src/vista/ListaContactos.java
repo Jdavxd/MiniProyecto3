@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 import javax.swing.table.TableCellEditor;
-    import modelo.Telefono;
-
+import modelo.Telefono;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -30,19 +29,16 @@ import java.awt.Color;
         private DefaultTableModel modeloTabla;
         private ContactoModelo contactoActual;
         private InterfazContacto vista;
-        
-        
-        public ListaContactos(ContactoDAO estudianteDAO,InterfazContacto interfazContacto) {
-            this.ContactoDAO = estudianteDAO;
-            this.vista = interfazContacto;
-            this.contactoActual = new ContactoModelo("", "", "", "", new ArrayList<>(), "");
-            setTitle("Lista de Contactos");
-            setSize(900, 300);
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
+      public ListaContactos(ContactoDAO estudianteDAO,InterfazContacto interfazContacto) {
+        this.ContactoDAO = estudianteDAO;
 
-            // Crear el modelo de la tabla con columnas
+        setTitle("Lista de Contactos");
+        setSize(900, 450);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Crear el modelo de la tabla con columnas
             modeloTabla = new DefaultTableModel();
             modeloTabla.addColumn("Identificación");
             modeloTabla.addColumn("Nombres");
@@ -53,7 +49,7 @@ import java.awt.Color;
             modeloTabla.addColumn("Teléfonos");
 
 
-
+        
             // Crear la tabla con el modelo
              tablaContactos = new JTable(modeloTabla) {
                 @Override
@@ -83,103 +79,6 @@ import java.awt.Color;
              for (int i = 0; i < tablaContactos.getColumnModel().getColumnCount(); i++) {
             tablaContactos.getColumnModel().getColumn(i).setResizable(false);
             }
-             
-             
-
-
-
-
-            // Obtener la lista inicial de estudiantes y agregarlos a la tabla
-            List<ContactoModelo> contactos = estudianteDAO.obtenerTodosEstudiantes();
-            for (ContactoModelo contacto : contactos) {
-                agregarFilaTabla(contacto);
-            }
-
-
-            // Crear el botón "Actualizar"
-            JButton btnActualizar = new JButton("Actualizar");
-            // Configurar el manejador de eventos para el botón Actualizar
-
-            JButton btnEliminar = new JButton("Eliminar");
-            JButton btnCargarEstudiantes = new JButton("Cargar Estudiantes");
-            JButton btnCargarEmpleados = new JButton("Cargar Empleados");
-            JButton btnCargarProfesores = new JButton("Cargar Profesores");
-            //btnActualizar.addActionListener(e -> actualizarTabla());
-
-            btnCargarEstudiantes.addActionListener(e -> cargarEstudiantes());
-            btnCargarEmpleados.addActionListener(e -> cargarEmpleados());
-            btnCargarProfesores.addActionListener(e -> cargarProfesores());
-
-            // Configurar el manejador de eventos para el botón Actualizar
-            btnActualizar.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-
-                    abrirVentanaEdicion();
-                }
-            });
-
-
-             btnEliminar.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-
-                    eliminarContacto();
-                }
-            });
-
-
-
-
-            // Crear un panel para agregar el botón y configurar el layout
-           add(new JScrollPane(tablaContactos), BorderLayout.CENTER);
-
-            // Crear un panel para agregar el botón y configurar el layout
-            JPanel panelBoton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-            panelBoton.add(btnActualizar);        
-            panelBoton.add(btnEliminar);
-            panelBoton.add(btnCargarEstudiantes);
-            panelBoton.add(btnCargarEmpleados);
-            panelBoton.add(btnCargarProfesores);
-
-
-            // Agregar el panel con el botón al contenedor
-            add(panelBoton, BorderLayout.SOUTH);
-
-            // Hacer visible la interfaz
-            setVisible(true);
-        }
-
-    public ListaContactos(ContactoDAO estudianteDAO) {
-
-        
-
-        this.ContactoDAO = estudianteDAO;
-
-        setTitle("Lista de Contactos");
-        setSize(900, 450);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // Crear el modelo de la tabla con columnas
-        modeloTabla = new DefaultTableModel();
-        modeloTabla.addColumn("Identificación");
-        modeloTabla.addColumn("Nombres");
-        modeloTabla.addColumn("Apellidos");
-        modeloTabla.addColumn("Fecha de Nacimiento");
-        modeloTabla.addColumn("Tipo de contacto");
-
-
-        // Crear la tabla con el modelo
-         tablaContactos = new JTable(modeloTabla) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                // Hacer que ninguna celda sea editable
-                return false;
-            }
-        };
-         // Deshabilitar la reordenación de columnas
-        tablaContactos.getTableHeader().setReorderingAllowed(false);
-         setLocationRelativeTo(null);
          
          
 
@@ -200,15 +99,6 @@ import java.awt.Color;
         
         ImageIcon IconBotEliminar = new ImageIcon("src/imagenes/BtnElim1-2.png");
         btnEliminar.setIcon(IconBotEliminar);
-        /*Image img = IconBotEliminar.getImage();
-
-        // Redimensionar el icono al tamaño del botón
-        var newImg = img.getScaledInstance(btnEliminar.getWidth(), btnEliminar.getHeight(), java.awt.Image.SCALE_SMOOTH);
-
-        // Establecer el icono redimensionado en el botón
-        IconBotEliminar = new ImageIcon(newImg);
-        btnEliminar.setIcon(IconBotEliminar);
-        */
         
         JButton btnCargarEstudiantes = new JButton("Cargar Estudiantes");
         btnCargarEstudiantes.setBackground(Color.BLACK);
@@ -276,9 +166,7 @@ import java.awt.Color;
 
         // Hacer visible la interfaz
         setVisible(true);
-
     }
-
         // Método para agregar una fila a la tabla con la información del estudiante
  private void agregarFilaTabla(ContactoModelo contacto) {
     // Modificar según el tipo de contacto
@@ -345,20 +233,11 @@ private String obtenerTelefonos(ContactoModelo contacto) {
         }
     }
 
-
-
-
-
-           
-
  
        private void cargarTodosLosContactos() {
     actualizarTabla();
 }
        
-       
-       
-
 
 private void eliminarContacto() {
     int filaSeleccionada = tablaContactos.getSelectedRow();
