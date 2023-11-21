@@ -20,8 +20,8 @@ public class ContactoModelo {
     private List<String> direcciones;
     private List<Telefono> telefonos;
 
-    public ContactoModelo(String numeroIdentificacion, String nombres, String apellidos, String fechaNacimiento,String tipoContacto) {
-        this.direcciones = new ArrayList<>();
+    public ContactoModelo(String numeroIdentificacion, String nombres, String apellidos, String fechaNacimiento,List<String> direcciones,String tipoContacto) {
+        this.direcciones = direcciones;
         this.telefonos = new ArrayList<>();
         this.numeroIdentificacion = numeroIdentificacion;
         this.nombres = nombres;

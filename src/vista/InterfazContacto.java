@@ -18,6 +18,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.ArrayList;
 import java.util.List;
 import modelo.Telefono;
 
@@ -36,6 +37,10 @@ public class InterfazContacto extends JFrame {
     private JButton btnAgregarTelefono;
     private ContactoController contactoController;
     private ListaContactos listaContactos;
+    private List<String> direccionesTemporales;
+    
+    
+    
     
     public InterfazContacto(ContactoDAO estudianteDAO) {
         this.estudianteDAO = estudianteDAO;
@@ -83,7 +88,7 @@ public class InterfazContacto extends JFrame {
         txtDireccion.setPreferredSize(new Dimension(300, 30));
         cmbTipoTelefono.setPreferredSize(new Dimension(150, 30));
         cmbTipoContacto.setPreferredSize(new Dimension(150, 30));
-       
+       direccionesTemporales = new ArrayList<>();
         
     
         // Añadir componentes al panel
@@ -177,6 +182,7 @@ public class InterfazContacto extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.agregarContacto();
+                obtenerDireccionesDesdeVista();
             }
         });
         setLocationRelativeTo(null);
@@ -184,7 +190,7 @@ public class InterfazContacto extends JFrame {
             btnAgregarDireccion.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            controlador.agregarDireccion();
+            agregarDireccionTemporal();
         }
     });
             
@@ -267,6 +273,30 @@ estudianteDAO.agregarTelefono(getIdentificacion(), nuevoTelefono);
     }
 }
     
+public List<String> obtenerDireccionesDesdeVista() {
+    List<String> direcciones = new ArrayList<>(direccionesTemporales);
+    return direcciones;
+}
+    
+   
+    
+private void agregarDireccionTemporal() {
+    String direccion = txtDireccion.getText();
+    if (!direccion.isEmpty()) {
+        direccionesTemporales.add(direccion.trim());
+        
+        // Limpia la caja de texto después de agregar la dirección temporal
+        limpiarDireccion();
+
+        // Muestra un mensaje de confirmación
+        JOptionPane.showMessageDialog(this, "Dirección agregada correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+        // Muestra un mensaje de error si la dirección está vacía
+        JOptionPane.showMessageDialog(this, "La dirección no puede estar vacía", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+    
     
     public void limpiarCampos() {
         txtIdentificacion.setText("");
@@ -276,9 +306,20 @@ estudianteDAO.agregarTelefono(getIdentificacion(), nuevoTelefono);
     }
 
     // Setter para el manejador de eventos del botón Agregar
-    public void setAgregarEstudianteListener(ActionListener listener) {
-        btnAgregar.addActionListener(listener);
+     public void setAgregarEstudianteListener(ActionListener listener) {
+        btnAgregar.addActionListener(e -> {
+            listener.actionPerformed(e);
+            notificarActualizacionTabla();
+        });
     }
+     
+        private void notificarActualizacionTabla() {
+        if (contactoController != null) {
+            listaContactos.notificarActualizacionTabla();
+        }
+    }
+    
+
 
 
 }

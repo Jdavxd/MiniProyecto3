@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import modelo.ContactoModelo;
 import colecciones.ContactoDAO;
 import javax.swing.table.DefaultTableModel;
-
+import java.util.List;
 public class InterfazEditar extends JFrame {
     private ContactoDAO estudianteDAO;
     private ContactoModelo estudiante;
@@ -18,6 +18,7 @@ public class InterfazEditar extends JFrame {
     private JTextField txtApellidos;
     private JTextField txtFechaNacimiento;
     private JComboBox<String> cmbTipoContacto;
+    private List<String> direcciones;
 
     public InterfazEditar(ListaContactos listaContactos, ContactoDAO estudianteDAO, ContactoModelo estudiante,DefaultTableModel modeloTabla) {
         super("Editar Contacto");
@@ -25,6 +26,7 @@ public class InterfazEditar extends JFrame {
         this.estudiante = estudiante;
         this.listaContactos = listaContactos;
          this.modeloTabla = modeloTabla;
+         this.direcciones = direcciones;
 
         setTitle("Editar Contacto");
         setSize(600, 300);

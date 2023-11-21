@@ -16,13 +16,14 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import vista.ListaContactos;
 import colecciones.ContactoDAO;
+import java.util.ArrayList;
 import modelo.Telefono;
 
 public class ContactoController {
     private InterfazContacto vista;
     private ContactoDAO ContactoDAO;
      private ListaContactos listaContactos;
-    private ContactoModelo contactoActual = new ContactoModelo("", "", "", "", "");
+    private ContactoModelo contactoActual = new ContactoModelo("", "", "", "", new ArrayList<>(), "");
 
     public ContactoController(InterfazContacto vista, ContactoDAO ContactoDAO, ListaContactos listaContactos ) {
         this.vista = vista;
@@ -31,6 +32,7 @@ public class ContactoController {
 
         // Configurar el manejador de eventos para el botón Agregar
         this.vista.setAgregarEstudianteListener(new AgregarEstudianteListener());
+        
     }
     
     
@@ -45,9 +47,10 @@ public void agregarContacto() {
     String apellidos = vista.getApellidos();
     String fechaNacimiento = vista.getFechaNacimiento();
     String tipoContacto = vista.getTipoContacto();
+    List<String> direcciones = vista.obtenerDireccionesDesdeVista(); // Obtener direcciones desde la vista
 
     // Crear una instancia de ContactoModelo con la información
-    ContactoModelo nuevoContacto = new ContactoModelo(identificacion, nombres, apellidos, fechaNacimiento, tipoContacto);
+    ContactoModelo nuevoContacto = new ContactoModelo(identificacion, nombres, apellidos, fechaNacimiento, direcciones, tipoContacto);
     nuevoContacto.setNumeroIdentificacion(identificacion);
     nuevoContacto.setNombres(nombres);
     nuevoContacto.setApellidos(apellidos);
@@ -77,6 +80,8 @@ public void agregarContacto() {
         listaContactos.actualizarTabla();
     });
 }
+
+
   
 
 public void agregarDireccion() {
@@ -84,6 +89,7 @@ public void agregarDireccion() {
     if (contactoActual != null) {
         // Obtiene la dirección desde la vista
         String direccion = vista.getDireccion();
+
 
         // Verifica que la dirección no esté vacía antes de agregarla
         if (!direccion.isEmpty()) {
@@ -146,9 +152,9 @@ public void agregarTelefono() {
             String apellidos = vista.getApellidos();
             String fechaNacimiento = vista.getFechaNacimiento();
             String tipoContacto = vista.getTipoContacto();
-
+            List<String> direcciones = vista.obtenerDireccionesDesdeVista();
             // Crear una instancia de ContactoModelo con la información
-            ContactoModelo nuevoEstudiante = new ContactoModelo(identificacion, nombres, apellidos, fechaNacimiento,tipoContacto);
+            ContactoModelo nuevoEstudiante = new ContactoModelo(identificacion, nombres, apellidos, fechaNacimiento,direcciones,tipoContacto);
             nuevoEstudiante.setNumeroIdentificacion(identificacion);
             nuevoEstudiante.setNombres(nombres);
             nuevoEstudiante.setApellidos(apellidos);

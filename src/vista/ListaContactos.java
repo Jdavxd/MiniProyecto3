@@ -14,6 +14,7 @@
     import modelo.ContactoModelo;
     import colecciones.ContactoDAO;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.stream.Collectors;
     import modelo.Telefono;
 
@@ -28,7 +29,7 @@ import java.util.stream.Collectors;
         public ListaContactos(ContactoDAO estudianteDAO,InterfazContacto interfazContacto) {
             this.ContactoDAO = estudianteDAO;
             this.vista = interfazContacto;
-            this.contactoActual = new ContactoModelo("","","","","");
+            this.contactoActual = new ContactoModelo("", "", "", "", new ArrayList<>(), "");
             setTitle("Lista de Contactos");
             setSize(900, 300);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -127,12 +128,16 @@ import java.util.stream.Collectors;
             setVisible(true);
         }
 
+    public ListaContactos(ContactoDAO estudianteDAO) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
         // Método para agregar una fila a la tabla con la información del estudiante
            private void agregarFilaTabla(ContactoModelo contacto) {
             // Modificar según el tipo de contacto
             String tipoContacto = contacto.getTipoContacto();
             List<String> direcciones = contacto.getDirecciones();
-            String direccionesComoString = direcciones.stream().collect(Collectors.joining(", "));
+            String obtenerDireccionesComoLista = direcciones.stream().collect(Collectors.joining(", "));
             String telefonos = obtenerTelefonos(contacto);
 
             Object[] fila = {
@@ -141,7 +146,7 @@ import java.util.stream.Collectors;
                     contacto.getApellidos(),
                     contacto.getFechaNacimiento(),
                     tipoContacto,
-                    direccionesComoString,
+                    obtenerDireccionesComoLista,
                     telefonos
 
             };
@@ -157,15 +162,15 @@ import java.util.stream.Collectors;
         }
     }
         
-public String obtenerDireccionesComoString(ContactoModelo contacto) {
-    List<String> direcciones = contacto.getDirecciones();
+public List<String> obtenerDireccionesComoLista(int filaSeleccionada) {
+    String direccionesComoString = (String) modeloTabla.getValueAt(filaSeleccionada, 5);
+    // Divide las direcciones utilizando un separador (por ejemplo, comas)
+    String[] direccionesArray = direccionesComoString.split(",");
 
-    StringBuilder sb = new StringBuilder();
-    for (String direccion : direcciones) {
-        sb.append(direccion).append(", ");
-    }
-
-    return sb.toString().isEmpty() ? "" : sb.substring(0, sb.length() - 2);
+    // Convierte el array en una lista y elimina espacios en blanco
+    return Arrays.stream(direccionesArray)
+                 .map(String::trim)
+                 .collect(Collectors.toList());
 }
 
 
@@ -258,27 +263,39 @@ private void eliminarContacto() {
         String fechaNacimiento = (String) modeloTabla.getValueAt(filaSeleccionada, 3);
         String tipoContacto = (String) modeloTabla.getValueAt(filaSeleccionada, 4);
 
-        // Crear y devolver un nuevo objeto ContactoModelo con los valores obtenidos
-        return new ContactoModelo(numeroIdentificacion, nombres, apellidos, fechaNacimiento, tipoContacto);
+     // Crear una lista vacía de direcciones
+    List<String> direcciones = new ArrayList<>();
+
+    // Crear y devolver un nuevo objeto ContactoModelo con los valores obtenidos
+    return new ContactoModelo(numeroIdentificacion, nombres, apellidos, fechaNacimiento, direcciones, tipoContacto);
+    }
+    
+       public void notificarActualizacionTabla() {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                actualizarTabla();
+            }
+        });
     }
 
-    private void abrirVentanaEdicion() {
-        int filaSeleccionada = tablaContactos.getSelectedRow();
+private void abrirVentanaEdicion() {
+    int filaSeleccionada = tablaContactos.getSelectedRow();
 
-        if (filaSeleccionada >= 0) {
-            contactoActual = obtenerContactoModeloDesdeFila(filaSeleccionada);
-            String numeroIdentificacion = (String) modeloTabla.getValueAt(filaSeleccionada, 0);
-            String nombres = (String) modeloTabla.getValueAt(filaSeleccionada, 1);
-            String apellidos = (String) modeloTabla.getValueAt(filaSeleccionada, 2);
-            String fechaNacimiento = (String) modeloTabla.getValueAt(filaSeleccionada, 3);
-            String tipoContacto = (String) modeloTabla.getValueAt(filaSeleccionada, 4);
-            ContactoModelo contactoSeleccionado = new ContactoModelo(numeroIdentificacion, nombres, apellidos, fechaNacimiento, tipoContacto);
+    if (filaSeleccionada >= 0) {
+        contactoActual = obtenerContactoModeloDesdeFila(filaSeleccionada);
+        String numeroIdentificacion = (String) modeloTabla.getValueAt(filaSeleccionada, 0);
+        String nombres = (String) modeloTabla.getValueAt(filaSeleccionada, 1);
+        String apellidos = (String) modeloTabla.getValueAt(filaSeleccionada, 2);
+        String fechaNacimiento = (String) modeloTabla.getValueAt(filaSeleccionada, 3);
+        List<String> direcciones = obtenerDireccionesComoLista(filaSeleccionada);
+        String tipoContacto = (String) modeloTabla.getValueAt(filaSeleccionada, 4);
 
-            InterfazEditar ventanaEdicion = new InterfazEditar(ListaContactos.this, ContactoDAO, contactoActual, modeloTabla);
-            ventanaEdicion.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(ListaContactos.this, "Seleccione un contacto para actualizar", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }
+        InterfazEditar ventanaEdicion = new InterfazEditar(ListaContactos.this, ContactoDAO, contactoActual, modeloTabla);
+        ventanaEdicion.setVisible(true);
+    } else {
+        JOptionPane.showMessageDialog(ListaContactos.this, "Seleccione un contacto para actualizar", "Advertencia", JOptionPane.WARNING_MESSAGE);
     }
+}
         // Otros métodos y funcionalidades según tus necesidades
-    }
+    }   
