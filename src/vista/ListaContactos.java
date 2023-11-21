@@ -221,12 +221,16 @@ import java.awt.Color;
         JButton btnCargarProfesores = new JButton("Cargar Profesores");
         btnCargarProfesores.setBackground(Color.BLACK);
         btnCargarProfesores.setForeground(Color.WHITE);
+        
+        JButton btnCargarTodos = new JButton("Cargar Todos");
+        btnCargarTodos.setBackground(Color.BLACK);
+        btnCargarTodos.setForeground(Color.WHITE);
         //btnActualizar.addActionListener(e -> actualizarTabla());
 
         btnCargarEstudiantes.addActionListener(e -> cargarEstudiantes());
         btnCargarEmpleados.addActionListener(e -> cargarEmpleados());
         btnCargarProfesores.addActionListener(e -> cargarProfesores());
-        
+        btnCargarTodos.addActionListener(e -> cargarTodosLosContactos());
         // Configurar el manejador de eventos para el botón Actualizar
         btnActualizar.addActionListener(new ActionListener() {
             @Override
@@ -256,7 +260,7 @@ import java.awt.Color;
         panelBoton.add(btnCargarEstudiantes);
         panelBoton.add(btnCargarEmpleados);
         panelBoton.add(btnCargarProfesores);
-
+        panelBoton.add(btnCargarTodos);
 
         // Agregar el panel con el botón al contenedor
         add(panelBoton, BorderLayout.NORTH);
@@ -294,6 +298,7 @@ import java.awt.Color;
     };
     modeloTabla.addRow(fila);
 }
+
 
 
         private void cargarEstudiantes() {
@@ -342,6 +347,17 @@ private String obtenerTelefonos(ContactoModelo contacto) {
 
 
 
+
+
+           
+
+ 
+       private void cargarTodosLosContactos() {
+    actualizarTabla();
+}
+       
+       
+       
 
 
 private void eliminarContacto() {
