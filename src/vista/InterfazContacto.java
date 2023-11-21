@@ -4,6 +4,7 @@
  */
 package vista;
 import controlador.ContactoController;
+import colecciones.ContactoDAO;
 /**
  * @author Julian Rengifo
  * @author Genaro Vegas 2241850
@@ -18,9 +19,14 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+
 import java.util.ArrayList;
 import java.util.List;
 import modelo.Telefono;
+
+import java.util.List;
+
+
 
 public class InterfazContacto extends JFrame {
     private ContactoDAO estudianteDAO;
@@ -46,7 +52,10 @@ public class InterfazContacto extends JFrame {
         this.estudianteDAO = estudianteDAO;
 
         setTitle("Agregar Contacto");
-        setSize(1000, 700);
+
+
+        setSize(1400, 900);
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         // Crear un panel para alinear los componentes en el centro
@@ -84,29 +93,39 @@ public class InterfazContacto extends JFrame {
         txtNombres.setPreferredSize(new Dimension(300, 30));
         txtApellidos.setPreferredSize(new Dimension(300, 30));
         txtFechaNacimiento.setPreferredSize(new Dimension(300, 30));
+
         txtNumeroTelefono.setPreferredSize(new Dimension(200, 30));
         txtDireccion.setPreferredSize(new Dimension(300, 30));
         cmbTipoTelefono.setPreferredSize(new Dimension(150, 30));
+
         cmbTipoContacto.setPreferredSize(new Dimension(150, 30));
        direccionesTemporales = new ArrayList<>();
         
     
         // Añadir componentes al panel
         panel.add(new JLabel("Identificación:"), gbc);
+        gbc.gridx = 0;
         gbc.gridy++;
         panel.add(txtIdentificacion, gbc);
-        gbc.gridy++;
+        gbc.gridx = 1;
+        gbc.gridy = 0;
         panel.add(new JLabel("Nombres:"), gbc);
+        gbc.gridx = 1;
         gbc.gridy++;
         panel.add(txtNombres, gbc);
-        gbc.gridy++;
+        gbc.gridx = 2;
+        gbc.gridy = 0;
         panel.add(new JLabel("Apellidos:"), gbc);
+        gbc.gridx = 2;
         gbc.gridy++;
         panel.add(txtApellidos, gbc);
+        gbc.gridx = 0;
         gbc.gridy++;
         panel.add(new JLabel("Fecha de Nacimiento:"), gbc);
+        gbc.gridx = 0;
         gbc.gridy++;
         panel.add(txtFechaNacimiento, gbc);
+        gbc.gridx = 0;
         gbc.gridy++;
         panel.add(new JLabel("Dirección:"), gbc);
         gbc.gridy++;
@@ -125,8 +144,10 @@ public class InterfazContacto extends JFrame {
         panel.add(btnAgregarTelefono, gbc);
         gbc.gridy++;
         panel.add(new JLabel("Tipo de Contacto:"), gbc);
+        gbc.gridx = 0;
         gbc.gridy++;
         panel.add(cmbTipoContacto, gbc);
+        gbc.gridx = 0;
         gbc.gridy++;
         gbc.anchor = GridBagConstraints.CENTER; // Para centrar el botón
         panel.add(btnAgregar, gbc);
