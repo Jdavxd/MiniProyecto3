@@ -16,6 +16,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
+import javax.swing.table.TableCellEditor;
     import modelo.Telefono;
 
     public class ListaContactos extends JFrame {
@@ -51,10 +52,24 @@ import java.util.stream.Collectors;
             // Crear la tabla con el modelo
              tablaContactos = new JTable(modeloTabla) {
                 @Override
-                public boolean isCellEditable(int row, int column) {
-                    // Hacer que ninguna celda sea editable
-                    return false;
-                }
+               public boolean isCellEditable(int row, int column) {
+        // Hacer que ninguna celda sea editable, excepto la columna de "Direcciones"
+        return column == 5;
+    }
+               
+       public TableCellEditor getCellEditor(int row, int column) {
+        int col = convertColumnIndexToModel(column);
+
+        if (col == 5) {
+            List<String> direcciones = obtenerDireccionesComoLista(row);
+            String[] direccionesArray = direcciones.toArray(new String[0]);
+            
+            JComboBox<String> cb = new JComboBox<>(direccionesArray);
+            return new DefaultCellEditor(cb);
+        } else {
+            return super.getCellEditor(row, column);
+        }
+    }
             };
              // Deshabilitar la reordenación de columnas
             tablaContactos.getTableHeader().setReorderingAllowed(false);
@@ -63,6 +78,8 @@ import java.util.stream.Collectors;
              for (int i = 0; i < tablaContactos.getColumnModel().getColumnCount(); i++) {
             tablaContactos.getColumnModel().getColumn(i).setResizable(false);
             }
+             
+             
 
 
 
