@@ -3,14 +3,15 @@
      * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
      */
     package colecciones;
-    import java.util.ArrayList;
+/**
+ * PROYECTO #3 GRUPO 80
+ * @author Julian David Rengifo - 202241016
+ * @author Genaro Vegas - 202241850 
+ * @Profesor Luis Johany Romo Portilla 
+ */
     import modelo.ContactoModelo;
-    /**
-     *
-     * @author julia
-     */
     import java.util.List;
-import modelo.Telefono;
+    import modelo.Telefono;
 
     public interface ContactoDAO {
         void agregarContacto(ContactoModelo contacto);

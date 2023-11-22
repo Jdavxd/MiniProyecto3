@@ -1,5 +1,10 @@
 package vista;
-
+/**
+ * PROYECTO #3 GRUPO 80
+ * @author Julian David Rengifo - 202241016
+ * @author Genaro Vegas - 202241850 
+ * @Profesor Luis Johany Romo Portilla 
+ */
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

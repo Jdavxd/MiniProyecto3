@@ -2,8 +2,13 @@
      * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
      * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
      */
-    package vista;
-
+package vista;
+/**
+ * PROYECTO #3 GRUPO 80
+ * @author Julian David Rengifo - 202241016
+ * @author Genaro Vegas - 202241850 
+ * @Profesor Luis Johany Romo Portilla 
+ */
 
 
 import java.util.ArrayList;
@@ -35,7 +40,9 @@ import java.awt.Image;
       public ListaContactos(ContactoDAO estudianteDAO,InterfazContacto interfazContacto) {
         this.ContactoDAO = estudianteDAO;
         this.vista = interfazContacto;
-        
+       // InterfazContacto interfazContacto = new InterfazContacto(estudianteDAO);
+        interfazContacto.setListaContactos(this); // Establece la referencia a ListaContactos
+        interfazContacto.setVisible(false);
         
         Image icono = new ImageIcon("src/imagenes/directorio-telefonico.png").getImage();
         setIconImage(icono);
@@ -46,13 +53,12 @@ import java.awt.Image;
        
         // Crear el modelo de la tabla con columnas
             modeloTabla = new DefaultTableModel();
-            modeloTabla.addColumn("Identificación");
-            modeloTabla.addColumn("Nombres");
-            modeloTabla.addColumn("Apellidos");
-            modeloTabla.addColumn("Fecha de Nacimiento");
-            modeloTabla.addColumn("Tipo de contacto");
-            modeloTabla.addColumn("Direcciones");
-            modeloTabla.addColumn("Teléfonos");
+            modeloTabla.addColumn("ID");
+            modeloTabla.addColumn("NOMBRES");
+            modeloTabla.addColumn("APELLIDOS");
+            modeloTabla.addColumn("TIPO DE CONTACTO");
+            modeloTabla.addColumn("DIRECCIONES");
+            modeloTabla.addColumn("TELÉFONOS");
 
 
         
@@ -108,6 +114,10 @@ import java.awt.Image;
         ImageIcon IconBotAgregar = new ImageIcon("src/imagenes/libro.png");
         btnNuevo.setIcon(IconBotAgregar);
         
+        JButton btnSalir = new JButton("Salir");
+        ImageIcon IconBotSalir = new ImageIcon("src/imagenes/salida.png");
+        btnSalir.setIcon(IconBotSalir);
+        
         JButton btnCargarEstudiantes = new JButton("Cargar Estudiantes");
         btnCargarEstudiantes.setBackground(Color.BLACK);
         btnCargarEstudiantes.setForeground(Color.WHITE);
@@ -158,6 +168,13 @@ import java.awt.Image;
         vista.setVisible(true);
     }
 });
+ 
+ btnSalir.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        cerrarAplicacion();
+    }
+});
          
        
          
@@ -179,7 +196,9 @@ import java.awt.Image;
         JPanel panelBoton2 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         panelBoton2.add(btnNuevo);
         panelBoton2.add(btnActualizar);        
-        panelBoton2.add(btnEliminar);
+        panelBoton2.add(btnEliminar);    
+        panelBoton2.add(btnSalir);
+
         
 
         // Agregar el panel con el botón al contenedor
@@ -227,6 +246,13 @@ public List<String> obtenerDireccionesComoLista(int filaSeleccionada) {
     return Arrays.stream(direccionesArray)
                  .map(String::trim)
                  .collect(Collectors.toList());
+}
+
+private void cerrarAplicacion() {
+    int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas cerrar la aplicación?", "Cerrar aplicación", JOptionPane.YES_NO_OPTION);
+    if (confirmacion == JOptionPane.YES_OPTION) {
+        System.exit(0);
+    }
 }
 
 

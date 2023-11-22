@@ -3,7 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package miniproyecto3;
-
+/**
+ * PROYECTO #3 GRUPO 80
+ * @author Julian David Rengifo - 202241016
+ * @author Genaro Vegas - 202241850 
+ * @Profesor Luis Johany Romo Portilla 
+ */
 import colecciones.ContactoImplementacionDAO;
 import javax.swing.SwingUtilities;
 import vista.InterfazContacto;

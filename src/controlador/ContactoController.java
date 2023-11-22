@@ -3,12 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package controlador;
+/**
+ * PROYECTO #3 GRUPO 80
+ * @author Julian David Rengifo - 202241016
+ * @author Genaro Vegas - 202241850 
+ * @Profesor Luis Johany Romo Portilla 
+ */
+
+
 import vista.InterfazContacto;
 import modelo.ContactoModelo;
-/**
- * @author Julian Rengifo 2241016
- * @author Genaro Vegas 2241850
- */
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;

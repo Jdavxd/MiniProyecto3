@@ -1,15 +1,20 @@
     package colecciones;
 
+    /**
+ * PROYECTO #3 GRUPO 80
+ * @author Julian David Rengifo - 202241016
+ * @author Genaro Vegas - 202241850 
+ * @Profesor Luis Johany Romo Portilla 
+ */
+    
+    
     import modelo.ContactoModelo;
-
     import java.util.ArrayList;
     import java.util.HashMap;
-    import java.util.HashSet;
     import java.util.Iterator;
     import java.util.List;
     import java.util.Map;
-    import java.util.Set;
-import modelo.Telefono;
+    import modelo.Telefono;
 
     public class ContactoImplementacionDAO implements ContactoDAO {
         private List<ContactoModelo> estudiantes = new ArrayList<>();
@@ -101,9 +106,6 @@ import modelo.Telefono;
         }
     }
 
-     //lista.removeIf(c -> !c.getNumeroIdentificacion().equals("0"));
-      //      System.out.println("ID VIEJO"+idVieja);
-      //      System.out.println("ID NUEVO"+idContacto);
 
 
     public void eliminarContacto(ContactoModelo contacto) {

@@ -3,11 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package vista;
-import controlador.ContactoController;
-import colecciones.ContactoDAO;
 /**
- * @author Julian Rengifo
- * @author Genaro Vegas 2241850
+ * PROYECTO #3 GRUPO 80
+ * @author Julian David Rengifo - 202241016
+ * @author Genaro Vegas - 202241850 
+ * @Profesor Luis Johany Romo Portilla 
  */
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,11 +19,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-
 import java.util.ArrayList;
-import java.util.List;
 import modelo.Telefono;
-
 import java.util.List;
 
 
@@ -38,7 +35,8 @@ public class InterfazContacto extends JFrame {
     private JTextField txtNumeroTelefono;
     private JComboBox<String> cmbTipoTelefono;
     private JComboBox<String> cmbTipoContacto;
-    private JButton btnAgregar; 
+    private JButton btnAgregar;
+    private JButton btnCancelar;
     private JButton btnAgregarDireccion;
     private JButton btnAgregarTelefono;
     private ContactoController contactoController;
@@ -50,7 +48,7 @@ public class InterfazContacto extends JFrame {
     
     public InterfazContacto(ContactoDAO estudianteDAO) {
         this.estudianteDAO = estudianteDAO;
-
+        
         setTitle("Agregar Contacto");
 
 
@@ -71,6 +69,7 @@ public class InterfazContacto extends JFrame {
         txtApellidos = new JTextField();
         txtFechaNacimiento = new JTextField();
         btnAgregar = new JButton("Agregar");
+        btnCancelar = new JButton("Cancelar");
         btnAgregarDireccion = new JButton();
         
         ImageIcon IconAgregar = new ImageIcon("src/imagenes/Mas8-1.jpg");
@@ -119,7 +118,7 @@ public class InterfazContacto extends JFrame {
         cmbTipoTelefono.setPreferredSize(new Dimension(150, 30));
 
         cmbTipoContacto.setPreferredSize(new Dimension(150, 30));
-       direccionesTemporales = new ArrayList<>();
+        direccionesTemporales = new ArrayList<>();
         
     
         // Añadir componentes al panel
@@ -179,49 +178,15 @@ public class InterfazContacto extends JFrame {
         /*gbc.anchor = GridBagConstraints.CENTER;*/ // Para centrar el botón
         gbc.gridx = 0;
         panel.add(btnAgregar, gbc);
-        
+        gbc.gridx = 2;
+        panel.add(btnCancelar, gbc);
+       
 
     
         // Agregar el panel al centro del JFrame
         add(panel, BorderLayout.CENTER);
 
-        /*
-        txtIdentificacion = new JTextField();
-        txtIdentificacion.setMaximumSize(new Dimension(500, 20));
-        txtNombres = new JTextField();
-        txtNombres.setMaximumSize(new Dimension(500,20));
-        txtApellidos = new JTextField();
-        txtApellidos.setMaximumSize(new Dimension(500, 20));
-        txtFechaNacimiento = new JTextField();
-        txtFechaNacimiento.setMaximumSize(new Dimension(500, 20));
-        btnAgregar = new JButton("Agregar");
-        
-        
 
-        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-        
-        
-        
-         // Inicializar el JComboBox y agregar tipos de contacto
-        cmbTipoContacto = new JComboBox<>();
-        cmbTipoContacto.addItem("Estudiante");
-        cmbTipoContacto.addItem("Profesor");
-        cmbTipoContacto.addItem("Empleado");
-        
-        cmbTipoContacto.setMaximumSize(new Dimension(500, 20));
-
-        add(new JLabel("Identificación:"));
-        add(txtIdentificacion);
-        add(new JLabel("Nombres:"));
-        add(txtNombres);
-        add(new JLabel("Apellidos:"));
-        add(txtApellidos);
-        add(new JLabel("Fecha de Nacimiento:"));
-        add(txtFechaNacimiento);
-        add(new JLabel("Tipo de Contacto:"));
-        add(cmbTipoContacto);
-        add(btnAgregar);
-        */
 
         // Asignar el controlador
         ContactoController controlador = new ContactoController(this, estudianteDAO, listaContactos);
@@ -242,10 +207,25 @@ public class InterfazContacto extends JFrame {
         });
               
               
-        
+btnCancelar.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // Cierra la instancia de InterfazContacto
+        setVisible(false);
+        dispose();
+
+        // Hace visible la instancia de ListaContactos que ya creaste
+        listaContactos.setVisible(true);
+    }
+});
         
         
     }
+    
+    
+    
+    
+    
     
      public void setAgregarDireccionesListener(ActionListener listener) {
         btnAgregarDireccion.addActionListener(listener);
@@ -361,7 +341,10 @@ private void agregarDireccionTemporal() {
             listaContactos.notificarActualizacionTabla();
         }
     }
-    
+        
+  public void setListaContactos(ListaContactos listaContactos) {
+        this.listaContactos = listaContactos;
+    }
 
 
 
