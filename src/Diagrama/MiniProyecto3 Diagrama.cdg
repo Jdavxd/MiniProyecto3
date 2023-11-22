@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="MiniProyecto3">
+  <ClassDiagramComponents>
+    <Interface name="ContactoDAO" package="colecciones" visibility="public" xPosition="20.0" yPosition="20.0">
+      <Methods>
+        <Method name="agregarContacto" returnType="void" visibility="package">
+          <Argument type="ContactoModelo" name="contacto"/>
+        </Method>
+        <Method name="actualizarContacto" returnType="void" visibility="package">
+          <Argument type="ContactoModelo" name="contacto"/>
+          <Argument type="String" name="nuevoTipoContacto"/>
+          <Argument type="String" name="idVieja"/>
+        </Method>
+        <Method name="eliminarContacto" returnType="void" visibility="package">
+          <Argument type="String" name="numeroIdentificacion"/>
+        </Method>
+        <Method name="agregarTelefono" returnType="void" visibility="package">
+          <Argument type="String" name="numeroIdentificacion"/>
+          <Argument type="Telefono" name="telefono"/>
+        </Method>
+        <Method name="obtenerTodosProfesores" returnType="List&lt;ContactoModelo&gt;" visibility="package"/>
+        <Method name="obtenerTodosEmpleados" returnType="List&lt;ContactoModelo&gt;" visibility="package"/>
+        <Method name="obtenerTodosEstudiantes" returnType="List&lt;ContactoModelo&gt;" visibility="package"/>
+        <Method name="obtenerContactosPorTipo" returnType="List&lt;ContactoModelo&gt;" visibility="package">
+          <Argument type="String" name="tipoContacto"/>
+        </Method>
+        <Method name="obtenerTiposDeContacto" returnType="List&lt;String&gt;" visibility="package"/>
+      </Methods>
+    </Interface>
+    <Class name="ContactoImplementacionDAO" package="colecciones" visibility="public" xPosition="320.0" yPosition="20.0">
+      <Fields>
+        <Field name="estudiantes" type="List&lt;ContactoModelo&gt;" visibility="private"/>
+        <Field name="profesores" type="List&lt;ContactoModelo&gt;" visibility="private"/>
+        <Field name="empleados" type="List&lt;ContactoModelo&gt;" visibility="private"/>
+        <Field name="contactosPorTipo" type="Map&lt;String, List&lt;ContactoModelo&gt;&gt;" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="agregarContacto" returnType="void" visibility="public">
+          <Argument type="ContactoModelo" name="contacto"/>
+        </Method>
+        <Method name="obtenerTodosProfesores" returnType="List&lt;ContactoModelo&gt;" visibility="public"/>
+        <Method name="obtenerTodosEmpleados" returnType="List&lt;ContactoModelo&gt;" visibility="public"/>
+        <Method name="actualizarContacto" returnType="void" visibility="public">
+          <Argument type="ContactoModelo" name="contacto"/>
+          <Argument type="String" name="nuevoTipoContacto"/>
+          <Argument type="String" name="idVieja"/>
+        </Method>
+        <Method name="eliminarContacto" returnType="void" visibility="public">
+          <Argument type="ContactoModelo" name="contacto"/>
+        </Method>
+        <Method name="obtenerTodosEstudiantes" returnType="List&lt;ContactoModelo&gt;" visibility="public"/>
+        <Method name="eliminarContacto" returnType="void" visibility="public">
+          <Argument type="String" name="numeroIdentificacion"/>
+        </Method>
+        <Method name="obtenerContactosPorTipo" returnType="List&lt;ContactoModelo&gt;" visibility="public">
+          <Argument type="String" name="tipoContacto"/>
+        </Method>
+        <Method name="obtenerTiposDeContacto" returnType="List&lt;String&gt;" visibility="public"/>
+        <Method name="agregarTelefono" returnType="void" visibility="public">
+          <Argument type="String" name="numeroIdentificacion"/>
+          <Argument type="Telefono" name="telefono"/>
+        </Method>
+        <Method name="obtenerTipoContactoPorIdentificacion" returnType="String" visibility="private">
+          <Argument type="String" name="numeroIdentificacion"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ContactoController" package="controlador" visibility="public" xPosition="620.0" yPosition="20.0">
+      <Fields>
+        <Field name="vista" type="InterfazContacto" visibility="private"/>
+        <Field name="ContactoDAO" type="ContactoDAO" visibility="private"/>
+        <Field name="listaContactos" type="ListaContactos" visibility="private"/>
+        <Field name="contactoActual" type="ContactoModelo" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="InterfazContacto" name="vista"/>
+          <Argument type="ContactoDAO" name="ContactoDAO"/>
+          <Argument type="ListaContactos" name="listaContactos"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setListaContactos" returnType="void" visibility="public">
+          <Argument type="ListaContactos" name="listaContactos"/>
+        </Method>
+        <Method name="agregarContacto" returnType="void" visibility="public"/>
+        <Method name="agregarDireccion" returnType="void" visibility="public"/>
+        <Method name="agregarTelefono" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="MiniProyecto3" package="miniproyecto3" visibility="public" xPosition="920.0" yPosition="20.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ContactoModelo" package="modelo" visibility="public" xPosition="1220.0" yPosition="20.0">
+      <Fields>
+        <Field name="numeroIdentificacion" type="String" visibility="private"/>
+        <Field name="nombres" type="String" visibility="private"/>
+        <Field name="apellidos" type="String" visibility="private"/>
+        <Field name="fechaNacimiento" type="String" visibility="private"/>
+        <Field name="tipoContacto" type="String" visibility="private"/>
+        <Field name="direcciones" type="List&lt;String&gt;" visibility="private"/>
+        <Field name="telefonos" type="List&lt;Telefono&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="numeroIdentificacion"/>
+          <Argument type="String" name="nombres"/>
+          <Argument type="String" name="apellidos"/>
+          <Argument type="String" name="fechaNacimiento"/>
+          <Argument type="List&lt;String&gt;" name="direcciones"/>
+          <Argument type="String" name="tipoContacto"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getNumeroIdentificacion" returnType="String" visibility="public"/>
+        <Method name="setNumeroIdentificacion" returnType="void" visibility="public">
+          <Argument type="String" name="numeroIdentificacion"/>
+        </Method>
+        <Method name="getNombres" returnType="String" visibility="public"/>
+        <Method name="setNombres" returnType="void" visibility="public">
+          <Argument type="String" name="nombres"/>
+        </Method>
+        <Method name="getApellidos" returnType="String" visibility="public"/>
+        <Method name="setApellidos" returnType="void" visibility="public">
+          <Argument type="String" name="apellidos"/>
+        </Method>
+        <Method name="getFechaNacimiento" returnType="String" visibility="public"/>
+        <Method name="setFechaNacimiento" returnType="void" visibility="public">
+          <Argument type="String" name="fechaNacimiento"/>
+        </Method>
+        <Method name="getDirecciones" returnType="List&lt;String&gt;" visibility="public"/>
+        <Method name="agregarDireccion" returnType="void" visibility="public">
+          <Argument type="String" name="direccion"/>
+        </Method>
+        <Method name="setDirecciones" returnType="void" visibility="public">
+          <Argument type="List&lt;String&gt;" name="direcciones"/>
+        </Method>
+        <Method name="getTelefonos" returnType="List&lt;Telefono&gt;" visibility="public"/>
+        <Method name="agregarTelefono" returnType="void" visibility="public">
+          <Argument type="Telefono" name="telefono"/>
+        </Method>
+        <Method name="getTipoContacto" returnType="String" visibility="public"/>
+        <Method name="setTipoContacto" returnType="void" visibility="public">
+          <Argument type="String" name="tipoContacto"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Telefono" package="modelo" visibility="public" xPosition="1520.0" yPosition="20.0">
+      <Fields>
+        <Field name="numero" type="String" visibility="private"/>
+        <Field name="tipo" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="numero"/>
+          <Argument type="String" name="tipo"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getNumero" returnType="String" visibility="public"/>
+        <Method name="setNumero" returnType="void" visibility="public">
+          <Argument type="String" name="numero"/>
+        </Method>
+        <Method name="getTipo" returnType="String" visibility="public"/>
+        <Method name="setTipo" returnType="void" visibility="public">
+          <Argument type="String" name="tipo"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="InterfazContacto" package="vista" visibility="public" xPosition="1820.0" yPosition="20.0">
+      <Fields>
+        <Field name="estudianteDAO" type="ContactoDAO" visibility="private"/>
+        <Field name="txtIdentificacion" type="JTextField" visibility="private"/>
+        <Field name="txtNombres" type="JTextField" visibility="private"/>
+        <Field name="txtApellidos" type="JTextField" visibility="private"/>
+        <Field name="txtFechaNacimiento" type="JTextField" visibility="private"/>
+        <Field name="txtDireccion" type="JTextField" visibility="private"/>
+        <Field name="txtNumeroTelefono" type="JTextField" visibility="private"/>
+        <Field name="cmbTipoTelefono" type="JComboBox&lt;String&gt;" visibility="private"/>
+        <Field name="cmbTipoContacto" type="JComboBox&lt;String&gt;" visibility="private"/>
+        <Field name="btnAgregar" type="JButton" visibility="private"/>
+        <Field name="btnCancelar" type="JButton" visibility="private"/>
+        <Field name="btnAgregarDireccion" type="JButton" visibility="private"/>
+        <Field name="btnAgregarTelefono" type="JButton" visibility="private"/>
+        <Field name="contactoController" type="ContactoController" visibility="private"/>
+        <Field name="listaContactos" type="ListaContactos" visibility="private"/>
+        <Field name="direccionesTemporales" type="List&lt;String&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="ContactoDAO" name="estudianteDAO"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setAgregarDireccionesListener" returnType="void" visibility="public">
+          <Argument type="ActionListener" name="listener"/>
+        </Method>
+        <Method name="setContactoController" returnType="void" visibility="public">
+          <Argument type="ContactoController" name="contactoController"/>
+        </Method>
+        <Method name="getIdentificacion" returnType="String" visibility="public"/>
+        <Method name="getNombres" returnType="String" visibility="public"/>
+        <Method name="getApellidos" returnType="String" visibility="public"/>
+        <Method name="getFechaNacimiento" returnType="String" visibility="public"/>
+        <Method name="getTipoContacto" returnType="String" visibility="public"/>
+        <Method name="getDireccion" returnType="String" visibility="public"/>
+        <Method name="limpiarDireccion" returnType="void" visibility="public"/>
+        <Method name="getTipoTelefono" returnType="String" visibility="public"/>
+        <Method name="getNumeroTelefono" returnType="String" visibility="public"/>
+        <Method name="limpiarTelefono" returnType="void" visibility="public"/>
+        <Method name="agregarTelefono" returnType="void" visibility="public"/>
+        <Method name="obtenerDireccionesDesdeVista" returnType="List&lt;String&gt;" visibility="public"/>
+        <Method name="agregarDireccionTemporal" returnType="void" visibility="private"/>
+        <Method name="limpiarDireccionesTemporales" returnType="void" visibility="public"/>
+        <Method name="limpiarCampos" returnType="void" visibility="public"/>
+        <Method name="setAgregarEstudianteListener" returnType="void" visibility="public">
+          <Argument type="ActionListener" name="listener"/>
+        </Method>
+        <Method name="notificarActualizacionTabla" returnType="void" visibility="private"/>
+        <Method name="setListaContactos" returnType="void" visibility="public">
+          <Argument type="ListaContactos" name="listaContactos"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="InterfazEditar" package="vista" visibility="public" xPosition="2120.0" yPosition="20.0">
+      <Fields>
+        <Field name="estudianteDAO" type="ContactoDAO" visibility="private"/>
+        <Field name="estudiante" type="ContactoModelo" visibility="private"/>
+        <Field name="listaContactos" type="ListaContactos" visibility="private"/>
+        <Field name="modeloTabla" type="DefaultTableModel" visibility="private"/>
+        <Field name="txtIdentificacion" type="JTextField" visibility="private"/>
+        <Field name="txtNombres" type="JTextField" visibility="private"/>
+        <Field name="txtApellidos" type="JTextField" visibility="private"/>
+        <Field name="txtFechaNacimiento" type="JTextField" visibility="private"/>
+        <Field name="cmbTipoContacto" type="JComboBox&lt;String&gt;" visibility="private"/>
+        <Field name="direcciones" type="List&lt;String&gt;" visibility="private"/>
+        <Field name="txtDireccion" type="JTextField" visibility="private"/>
+        <Field name="txtNumeroTelefono" type="JTextField" visibility="private"/>
+        <Field name="cmbTipoTelefono" type="JComboBox&lt;String&gt;" visibility="private"/>
+        <Field name="btnAgregar" type="JButton" visibility="private"/>
+        <Field name="btnAgregarDireccion" type="JButton" visibility="private"/>
+        <Field name="btnAgregarTelefono" type="JButton" visibility="private"/>
+        <Field name="direccionesTemporales" type="List&lt;String&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="ListaContactos" name="listaContactos"/>
+          <Argument type="ContactoDAO" name="estudianteDAO"/>
+          <Argument type="ContactoModelo" name="estudiante"/>
+          <Argument type="DefaultTableModel" name="modeloTabla"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="guardarCambios" returnType="void" visibility="private"/>
+      </Methods>
+    </Class>
+    <Class name="ListaContactos" package="vista" visibility="public" xPosition="20.0" yPosition="420.0">
+      <Fields>
+        <Field name="ContactoDAO" type="ContactoDAO" visibility="private"/>
+        <Field name="tablaContactos" type="JTable" visibility="private"/>
+        <Field name="modeloTabla" type="DefaultTableModel" visibility="private"/>
+        <Field name="contactoActual" type="ContactoModelo" visibility="private"/>
+        <Field name="vista" type="InterfazContacto" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="ContactoDAO" name="estudianteDAO"/>
+          <Argument type="InterfazContacto" name="interfazContacto"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="agregarFilaTabla" returnType="void" visibility="private">
+          <Argument type="ContactoModelo" name="contacto"/>
+        </Method>
+        <Method name="cargarEstudiantes" returnType="void" visibility="private"/>
+        <Method name="obtenerDireccionesComoLista" returnType="List&lt;String&gt;" visibility="public">
+          <Argument type="int" name="filaSeleccionada"/>
+        </Method>
+        <Method name="cerrarAplicacion" returnType="void" visibility="private"/>
+        <Method name="obtenerTelefonos" returnType="String" visibility="private">
+          <Argument type="ContactoModelo" name="contacto"/>
+        </Method>
+        <Method name="cargarEmpleados" returnType="void" visibility="private"/>
+        <Method name="cargarProfesores" returnType="void" visibility="private"/>
+        <Method name="cargarTodosLosContactos" returnType="void" visibility="private"/>
+        <Method name="eliminarContacto" returnType="void" visibility="private"/>
+        <Method name="actualizarTablaPorTipo" returnType="void" visibility="public">
+          <Argument type="String" name="tipoContacto"/>
+        </Method>
+        <Method name="actualizarTabla" returnType="void" visibility="public"/>
+        <Method name="actualizarTablaDesdeOtraClase" returnType="void" visibility="public"/>
+        <Method name="obtenerContactoModeloDesdeFila" returnType="ContactoModelo" visibility="private">
+          <Argument type="int" name="filaSeleccionada"/>
+        </Method>
+        <Method name="notificarActualizacionTabla" returnType="void" visibility="public"/>
+        <Method name="abrirVentanaEdicion" returnType="void" visibility="private"/>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="contactosPorTipo" source="colecciones.ContactoImplementacionDAO" target="modelo.ContactoModelo" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="Map&lt;String, List&lt;ContactoModelo&gt;&gt;"/>
+    <UseRelation source="controlador.ContactoController" target="vista.ListaContactos" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="telefonos" source="modelo.ContactoModelo" target="modelo.Telefono" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;Telefono&gt;"/>
+    <HasRelation name="listaContactos" source="vista.InterfazEditar" target="vista.ListaContactos" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ListaContactos"/>
+    <HasRelation name="listaContactos" source="controlador.ContactoController" target="vista.ListaContactos" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ListaContactos"/>
+    <HasRelation name="contactoController" source="vista.InterfazContacto" target="controlador.ContactoController" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="empleados" source="colecciones.ContactoImplementacionDAO" target="modelo.ContactoModelo" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;ContactoModelo&gt;"/>
+    <HasRelation name="estudianteDAO" source="vista.InterfazContacto" target="colecciones.ContactoDAO" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="colecciones.ContactoImplementacionDAO" target="modelo.ContactoModelo" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="colecciones.ContactoImplementacionDAO" target="modelo.Telefono" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="contactoActual" source="controlador.ContactoController" target="modelo.ContactoModelo" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="vista.InterfazContacto" target="controlador.ContactoController" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="vista.InterfazContacto" target="vista.ListaContactos" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="contactoActual" source="vista.ListaContactos" target="modelo.ContactoModelo" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="ContactoDAO" source="controlador.ContactoController" target="colecciones.ContactoDAO" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="vista.ListaContactos" target="modelo.ContactoModelo" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="listaContactos" source="vista.InterfazContacto" target="vista.ListaContactos" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ListaContactos"/>
+    <HasRelation name="estudianteDAO" source="vista.InterfazEditar" target="colecciones.ContactoDAO" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="ContactoDAO" source="vista.ListaContactos" target="colecciones.ContactoDAO" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="modelo.ContactoModelo" target="modelo.Telefono" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="vista" source="controlador.ContactoController" target="vista.InterfazContacto" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="estudiante" source="vista.InterfazEditar" target="modelo.ContactoModelo" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="colecciones.ContactoDAO" target="modelo.ContactoModelo" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="estudiantes" source="colecciones.ContactoImplementacionDAO" target="modelo.ContactoModelo" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;ContactoModelo&gt;"/>
+    <HasRelation name="vista" source="vista.ListaContactos" target="vista.InterfazContacto" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="profesores" source="colecciones.ContactoImplementacionDAO" target="modelo.ContactoModelo" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;ContactoModelo&gt;"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="colecciones.ContactoImplementacionDAO" target="colecciones.ContactoDAO"/>
+    <UseRelation source="colecciones.ContactoDAO" target="modelo.Telefono" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
