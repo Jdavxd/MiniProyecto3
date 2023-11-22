@@ -54,7 +54,7 @@ public class InterfazContacto extends JFrame {
         setTitle("Agregar Contacto");
 
 
-        setSize(1400, 900);
+        setSize(1000, 500);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
@@ -71,8 +71,15 @@ public class InterfazContacto extends JFrame {
         txtApellidos = new JTextField();
         txtFechaNacimiento = new JTextField();
         btnAgregar = new JButton("Agregar");
-        btnAgregarDireccion = new JButton("Agregar Dirección");
-        btnAgregarTelefono = new JButton("Agregar Teléfono");
+        btnAgregarDireccion = new JButton();
+        
+        ImageIcon IconAgregar = new ImageIcon("src/imagenes/Mas8-1.jpg");
+        btnAgregarDireccion.setIcon(IconAgregar);
+        
+        btnAgregarTelefono = new JButton();
+        ImageIcon IconAgregar2 = new ImageIcon("src/imagenes/Mas9-1.jpg");
+        btnAgregarTelefono.setIcon(IconAgregar2);
+        
         cmbTipoContacto = new JComboBox<>();
         cmbTipoContacto.addItem("Estudiante");
         cmbTipoContacto.addItem("Profesor");
@@ -105,7 +112,7 @@ public class InterfazContacto extends JFrame {
         // Añadir componentes al panel
         panel.add(new JLabel("Identificación:"), gbc);
         gbc.gridx = 0;
-        gbc.gridy++;
+        gbc.gridy = 1;
         panel.add(txtIdentificacion, gbc);
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -117,31 +124,38 @@ public class InterfazContacto extends JFrame {
         gbc.gridy = 0;
         panel.add(new JLabel("Apellidos:"), gbc);
         gbc.gridx = 2;
-        gbc.gridy++;
+        gbc.gridy = 1;
         panel.add(txtApellidos, gbc);
         gbc.gridx = 0;
-        gbc.gridy++;
+        gbc.gridy = 2;
         panel.add(new JLabel("Fecha de Nacimiento:"), gbc);
         gbc.gridx = 0;
         gbc.gridy++;
         panel.add(txtFechaNacimiento, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        panel.add(new JLabel("Dirección:"), gbc);
+        gbc.gridy = 3;
+        panel.add(txtDireccion, gbc);
+        gbc.gridx = 2;
+        gbc.gridy = 3;
+        panel.add(btnAgregarDireccion, gbc);
         gbc.gridx = 0;
         gbc.gridy++;
-        panel.add(new JLabel("Dirección:"), gbc);
-        gbc.gridy++;
-        panel.add(txtDireccion, gbc);
-        gbc.gridy++;
-        panel.add(btnAgregarDireccion, gbc);
-        gbc.gridy++;
         panel.add(new JLabel("Número de Teléfono:"), gbc);
+        gbc.gridx = 0;
         gbc.gridy++;
         panel.add(txtNumeroTelefono, gbc);
-        gbc.gridy++;
+        gbc.gridx = 1;
+        gbc.gridy = 4;
         panel.add(new JLabel("Tipo de Teléfono:"), gbc);
-        gbc.gridy++;
+        gbc.gridx = 1;
+        gbc.gridy = 5;
         panel.add(cmbTipoTelefono, gbc);
-        gbc.gridy++;
+        gbc.gridx = 2;
+        gbc.gridy = 5;
         panel.add(btnAgregarTelefono, gbc);
+        gbc.gridx = 0;
         gbc.gridy++;
         panel.add(new JLabel("Tipo de Contacto:"), gbc);
         gbc.gridx = 0;
@@ -149,7 +163,8 @@ public class InterfazContacto extends JFrame {
         panel.add(cmbTipoContacto, gbc);
         gbc.gridx = 0;
         gbc.gridy++;
-        gbc.anchor = GridBagConstraints.CENTER; // Para centrar el botón
+        /*gbc.anchor = GridBagConstraints.CENTER;*/ // Para centrar el botón
+        gbc.gridx = 0;
         panel.add(btnAgregar, gbc);
         
 

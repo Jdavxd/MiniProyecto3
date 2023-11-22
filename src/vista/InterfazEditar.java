@@ -29,8 +29,10 @@ public class InterfazEditar extends JFrame {
          this.direcciones = direcciones;
 
         setTitle("Editar Contacto");
-        setSize(600, 300);
+        setSize(1000, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        
 
         txtIdentificacion = new JTextField(10);
         txtNombres = new JTextField(10);
