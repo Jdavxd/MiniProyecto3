@@ -219,7 +219,6 @@ import java.awt.Image;
             contacto.getNumeroIdentificacion(),
             contacto.getNombres(),
             contacto.getApellidos(),
-            contacto.getFechaNacimiento(),
             tipoContacto,
             obtenerDireccionesComoLista,
             telefonos
