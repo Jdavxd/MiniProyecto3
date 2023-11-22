@@ -140,10 +140,11 @@ import java.awt.Image;
         btnCargarProfesores.addActionListener(e -> cargarProfesores());
         btnCargarTodos.addActionListener(e -> cargarTodosLosContactos());
         // Configurar el manejador de eventos para el botón Actualizar
-        btnActualizar.addActionListener(new ActionListener() {
+     btnActualizar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                setVisible(false);
+                dispose();
                 abrirVentanaEdicion();
             }
         });
@@ -340,14 +341,14 @@ private void eliminarContacto() {
 
     private ContactoModelo obtenerContactoModeloDesdeFila(int filaSeleccionada) {
         // Obtener los valores de la fila seleccionada
-        String numeroIdentificacion = (String) modeloTabla.getValueAt(filaSeleccionada, 0);
-        String nombres = (String) modeloTabla.getValueAt(filaSeleccionada, 1);
-        String apellidos = (String) modeloTabla.getValueAt(filaSeleccionada, 2);
-        String fechaNacimiento = (String) modeloTabla.getValueAt(filaSeleccionada, 3);
-        String tipoContacto = (String) modeloTabla.getValueAt(filaSeleccionada, 4);
+ String numeroIdentificacion = (String) modeloTabla.getValueAt(filaSeleccionada, 0);
+    String nombres = (String) modeloTabla.getValueAt(filaSeleccionada, 1);
+    String apellidos = (String) modeloTabla.getValueAt(filaSeleccionada, 2);
+    String tipoContacto = (String) modeloTabla.getValueAt(filaSeleccionada, 3);
+    String fechaNacimiento = (String) modeloTabla.getValueAt(filaSeleccionada, 5);
 
      // Crear una lista vacía de direcciones
-    List<String> direcciones = new ArrayList<>();
+        List<String> direcciones = new ArrayList<>();
 
     // Crear y devolver un nuevo objeto ContactoModelo con los valores obtenidos
     return new ContactoModelo(numeroIdentificacion, nombres, apellidos, fechaNacimiento, direcciones, tipoContacto);
@@ -382,6 +383,7 @@ private void abrirVentanaEdicion() {
         ventanaEdicion  .setVisible(true);
     } else {
         JOptionPane.showMessageDialog(ListaContactos.this, "Seleccione un contacto para actualizar", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        setVisible(true);
     }
 }
         // Otros métodos y funcionalidades según tus necesidades

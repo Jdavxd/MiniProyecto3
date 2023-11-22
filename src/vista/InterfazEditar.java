@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import modelo.ContactoModelo;
 import colecciones.ContactoDAO;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 
@@ -55,6 +56,7 @@ public class InterfazEditar extends JFrame {
     
         // Componentes
         txtIdentificacion = new JTextField();
+        txtIdentificacion.setEditable(false);
         txtNombres = new JTextField();
         txtApellidos = new JTextField();
         txtFechaNacimiento = new JTextField();
@@ -63,10 +65,19 @@ public class InterfazEditar extends JFrame {
         
         ImageIcon IconAgregar = new ImageIcon("src/imagenes/Mas8-1.jpg");
         btnAgregarDireccion.setIcon(IconAgregar);
+        btnAgregarDireccion.setBorderPainted(false);
+        btnAgregarDireccion.setContentAreaFilled(false);
+        btnAgregarDireccion.setBorder(null);
+        btnAgregarDireccion.setFocusPainted(false);
+        
         
         btnAgregarTelefono = new JButton();
         ImageIcon IconAgregar2 = new ImageIcon("src/imagenes/Mas9-1.jpg");
         btnAgregarTelefono.setIcon(IconAgregar2);
+        btnAgregarTelefono.setBorderPainted(false);
+        btnAgregarTelefono.setContentAreaFilled(false);
+        btnAgregarTelefono.setBorder(null);
+        btnAgregarTelefono.setFocusPainted(false);
         
         cmbTipoContacto = new JComboBox<>();
         cmbTipoContacto.addItem("Estudiante");
@@ -192,24 +203,35 @@ public class InterfazEditar extends JFrame {
         
         cmbTipoContacto.setSelectedItem(estudiante.getTipoContacto());
         
+        String tipoContactoEstudiante = estudiante.getTipoContacto();
+if (cmbTipoContacto.getItemCount() > 0 && tipoContactoEstudiante != null) {
+    DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) cmbTipoContacto.getModel();
+    if (model.getIndexOf(tipoContactoEstudiante) != -1) {
+        cmbTipoContacto.setSelectedItem(tipoContactoEstudiante);
+    } else {
+        System.out.println("Advertencia: Tipo de contacto no encontrado en el JComboBox");
+    }
+}
+        
         cmbTipoTelefono.setSelectedItem(estudiante.getTipoContacto());
         
-        estudiante.setNumeroIdentificacion("0");
+        //estudiante.setNumeroIdentificacion("0");
 
         // Crear un panel para el botón y configurar el diseño
         JPanel panelBoton = new JPanel();
         panelBoton.setLayout(new FlowLayout(FlowLayout.RIGHT));
         JButton btnGuardar = new JButton("Guardar");
 
-        btnGuardar.addActionListener(new ActionListener() {
+ 
+        
+           btnAgregar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 guardarCambios();
             }
         });
 
-        panelBoton.add(btnGuardar);
-        add(panelBoton);
+       
 
         // Centrar la ventana en relación con la ventana principal
         setLocationRelativeTo(null);
@@ -218,6 +240,9 @@ public class InterfazEditar extends JFrame {
  private void guardarCambios() {
         String idVieja = estudiante.getNumeroIdentificacion();
         String nuevoTipoContacto = cmbTipoContacto.getSelectedItem().toString();
+        
+        System.out.println("Valor almacenado: " + nuevoTipoContacto);
+    System.out.println("Elementos en el JComboBox: " + cmbTipoContacto.getItemCount());
         // Actualizar el objeto ContactoModelo con la nueva información
         estudiante.setNumeroIdentificacion(txtIdentificacion.getText());
         estudiante.setNombres(txtNombres.getText());
@@ -234,5 +259,6 @@ public class InterfazEditar extends JFrame {
         // Mostrar la lista actualizada correspondiente al tipo de contacto en la ventana principal
         JOptionPane.showMessageDialog(this, "Contacto actualizado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         listaContactos.actualizarTablaPorTipo(estudiante.getTipoContacto());
+        listaContactos.setVisible(true);
     }
 }

@@ -52,7 +52,10 @@ public void agregarContacto() {
     String fechaNacimiento = vista.getFechaNacimiento();
     String tipoContacto = vista.getTipoContacto();
     List<String> direcciones = vista.obtenerDireccionesDesdeVista(); // Obtener direcciones desde la vista
-    
+     if (identificacion.isBlank() || nombres.isBlank()) {
+        JOptionPane.showMessageDialog(vista, "Ingresa al menos la identificación y el nombre", "Error", JOptionPane.ERROR_MESSAGE);
+        return; // Salir del método si la validación falla
+    }
     // Crear una instancia de ContactoModelo con la información
     ContactoModelo nuevoContacto = new ContactoModelo(identificacion, nombres, apellidos, fechaNacimiento, direcciones, tipoContacto);
     nuevoContacto.setNumeroIdentificacion(identificacion);
