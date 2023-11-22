@@ -20,15 +20,19 @@ public class MiniProyecto3 {
     /**
      * @param args the command line arguments
      */
-      public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                ContactoDAO estudianteDAO = new ContactoImplementacionDAO();
-                new InterfazContacto(estudianteDAO).setVisible(true);  
-
-            }
-        });
-    }
+public static void main(String[] args) {
+    SwingUtilities.invokeLater(new Runnable() {
+        @Override
+        public void run() {
+            ContactoDAO estudianteDAO = new ContactoImplementacionDAO();
+            
+            // Crea una instancia de InterfazContacto
+            InterfazContacto interfazContacto = new InterfazContacto(estudianteDAO);
+            
+            // Pasa la instancia de InterfazContacto a ListaContactos
+            new ListaContactos(estudianteDAO, interfazContacto);
+        }
+    });
+}
     
 }

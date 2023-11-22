@@ -75,10 +75,23 @@ public class InterfazContacto extends JFrame {
         
         ImageIcon IconAgregar = new ImageIcon("src/imagenes/Mas8-1.jpg");
         btnAgregarDireccion.setIcon(IconAgregar);
+    
+        btnAgregarDireccion.setIcon(IconAgregar);
+        btnAgregarDireccion.setBorderPainted(false);
+        btnAgregarDireccion.setContentAreaFilled(false);
+        btnAgregarDireccion.setBorder(null);
+        btnAgregarDireccion.setFocusPainted(false);
         
         btnAgregarTelefono = new JButton();
         ImageIcon IconAgregar2 = new ImageIcon("src/imagenes/Mas9-1.jpg");
         btnAgregarTelefono.setIcon(IconAgregar2);
+        
+        btnAgregarTelefono.setIcon(IconAgregar2);
+        btnAgregarTelefono.setBorderPainted(false);
+        btnAgregarTelefono.setContentAreaFilled(false);
+        btnAgregarTelefono.setBorder(null);
+        btnAgregarTelefono.setFocusPainted(false);
+        
         
         cmbTipoContacto = new JComboBox<>();
         cmbTipoContacto.addItem("Estudiante");

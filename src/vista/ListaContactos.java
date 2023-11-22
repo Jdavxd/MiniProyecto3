@@ -21,6 +21,7 @@ import java.util.List;
 import modelo.ContactoModelo;
 import colecciones.ContactoDAO;
 import java.awt.Color;
+import java.awt.Image;
 
 
     public class ListaContactos extends JFrame {
@@ -33,11 +34,16 @@ import java.awt.Color;
 
       public ListaContactos(ContactoDAO estudianteDAO,InterfazContacto interfazContacto) {
         this.ContactoDAO = estudianteDAO;
+        this.vista = interfazContacto;
+        
+        
+        Image icono = new ImageIcon("src/imagenes/directorio-telefonico.png").getImage();
+        setIconImage(icono);
 
         setTitle("Lista de Contactos");
         setSize(900, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+       
         // Crear el modelo de la tabla con columnas
             modeloTabla = new DefaultTableModel();
             modeloTabla.addColumn("Identificación");
@@ -89,16 +95,18 @@ import java.awt.Color;
         }
         
         
-        // Crear el botón "Actualizar"
+        // Crear los botones
         JButton btnActualizar = new JButton("Actualizar");
-        // Configurar el manejador de eventos para el botón Actualizar
-        ImageIcon IconBotActualizar = new ImageIcon("src/imagenes/Edit1-2.png");
+        ImageIcon IconBotActualizar = new ImageIcon("src/imagenes/editar.png");
         btnActualizar.setIcon(IconBotActualizar);
         
         JButton btnEliminar = new JButton("Eliminar");
-        
-        ImageIcon IconBotEliminar = new ImageIcon("src/imagenes/BtnElim1-2.png");
+        ImageIcon IconBotEliminar = new ImageIcon("src/imagenes/eliminar.png");
         btnEliminar.setIcon(IconBotEliminar);
+        
+        JButton btnNuevo = new JButton("Agregar contacto");
+        ImageIcon IconBotAgregar = new ImageIcon("src/imagenes/libro.png");
+        btnNuevo.setIcon(IconBotAgregar);
         
         JButton btnCargarEstudiantes = new JButton("Cargar Estudiantes");
         btnCargarEstudiantes.setBackground(Color.BLACK);
@@ -139,6 +147,18 @@ import java.awt.Color;
             }
         });
          
+ btnNuevo.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // Cierra la instancia de ListaContactos
+        setVisible(false);
+        dispose();
+
+        // Hace visible la instancia de InterfazContacto que ya creaste
+        vista.setVisible(true);
+    }
+});
+         
        
          
 
@@ -151,15 +171,16 @@ import java.awt.Color;
         panelBoton.add(btnCargarEmpleados);
         panelBoton.add(btnCargarProfesores);
         panelBoton.add(btnCargarTodos);
-
         // Agregar el panel con el botón al contenedor
         add(panelBoton, BorderLayout.NORTH);
         
        
         // Crear un panel para agregar el botón y configurar el layout
         JPanel panelBoton2 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        panelBoton2.add(btnNuevo);
         panelBoton2.add(btnActualizar);        
         panelBoton2.add(btnEliminar);
+        
 
         // Agregar el panel con el botón al contenedor
         add(panelBoton2, BorderLayout.SOUTH);

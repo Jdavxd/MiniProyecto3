@@ -80,6 +80,8 @@ public void agregarContacto() {
         listaContactos = new ListaContactos(ContactoDAO, vista);
         setListaContactos(listaContactos);
         listaContactos.actualizarTabla();
+        vista.setVisible(false);
+        vista.dispose();
     });
 }
 
@@ -102,7 +104,7 @@ public void agregarDireccion() {
             vista.limpiarDireccion();
 
             // Imprime un mensaje de prueba
-            System.out.println("Dirección agregadaaaa: " + direccion);
+            System.out.println("Dirección agregada: " + direccion);
         } else {
             // Muestra un mensaje de error si la dirección está vacía
             JOptionPane.showMessageDialog(vista, "La dirección no puede estar vacía", "Error", JOptionPane.ERROR_MESSAGE);
@@ -135,7 +137,7 @@ public void agregarTelefono() {
         System.out.println("Teléfono agregado: " + nuevoTelefono);
     } else {
         // Mostrar un mensaje de error si algún campo está vacío
-        JOptionPane.showMessageDialog(vista, "Debe completar ambos campos de teléfono", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(vista, "El telefono no puede estar vacio", "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
   
